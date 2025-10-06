@@ -8,7 +8,7 @@ function Page() {
             <div className="fixed top-4 right-4 z-50">
                 <CustomThemeBtn />
             </div>
-            <div className="w-full md:w-2/3 lg:w-1/2">
+            <div className="w-full md:w-2/3 lg:w-1/3">
                 <CustomSignupForm />
             </div>
         </div>

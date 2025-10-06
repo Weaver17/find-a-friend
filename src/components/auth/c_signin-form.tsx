@@ -10,7 +10,11 @@ import {
     CustomCardContent,
 } from "../custom/c_card";
 import { CustomInput } from "../custom/c_input";
-import { CustomFieldGroup, CustomFieldSeparator } from "../custom/c_field";
+import {
+    CustomFieldDescription,
+    CustomFieldGroup,
+    CustomFieldSeparator,
+} from "../custom/c_field";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -112,10 +116,10 @@ export function CustomSignInForm({
 
                                 <CustomFieldSeparator />
                                 <CustomButton>Sign In</CustomButton>
-                                <CustomFormDescription className="text-center">
+                                <CustomFieldDescription className="text-center">
                                     Don&apos;t have an account?{" "}
                                     <Link href="/signup">Sign up</Link>
-                                </CustomFormDescription>
+                                </CustomFieldDescription>
                             </CustomFieldGroup>
                         </form>
                     </CustomForm>
