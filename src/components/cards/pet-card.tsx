@@ -8,12 +8,17 @@ import {
     CustomCardFooter,
 } from "../custom/c_card";
 import { LargeCustom, PCustom } from "../typeography/custom";
+import { Friend } from "@/types/types";
 
-function PetCard() {
+type PetCardProps = {
+    pet: Friend;
+};
+
+function PetCard({ pet }: PetCardProps) {
     return (
         <CustomCard className="p-0 gap-1 w-[320px] h-[400px]">
             <CustomCardHeader className="py-2">
-                <LargeCustom>Pet Name</LargeCustom>
+                <LargeCustom>{pet.name}</LargeCustom>
                 <CustomButton
                     variant="ghost"
                     size="icon-sm"
