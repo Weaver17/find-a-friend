@@ -1,3 +1,11 @@
+import { H1Custom } from "@/components/typeography/custom";
+
 export default function Home() {
-    return <div className=" min-h-screen p-8 md:p-16 lg:p-20 "></div>;
+    return (
+        <div className="font-sans min-h-screen">
+            <H1Custom className="text-center">
+                Latest Potential Friends
+            </H1Custom>
+        </div>
+    );
 }
