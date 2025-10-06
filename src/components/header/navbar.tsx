@@ -23,7 +23,7 @@ function Navbar() {
                             asChild
                             className={customNavigationMenuTriggerStyle()}
                         >
-                            <Link href="/">Search</Link>
+                            <Link href="/search">Search</Link>
                         </CustomNavigationMenuLink>
                     </CustomNavigationMenuItem>
                     <CustomNavigationMenuItem>
@@ -48,7 +48,8 @@ function Navbar() {
                                             className={customNavigationMenuTriggerStyle()}
                                         >
                                             <Link
-                                                href={`/${animal.slug}`}
+                                                // href={`/${animal.slug}`}
+                                                href="/pet-types"
                                                 className="w-full"
                                             >
                                                 Browse {animal.label}
@@ -81,7 +82,8 @@ function Navbar() {
                                             className={customNavigationMenuTriggerStyle()}
                                         >
                                             <Link
-                                                href={`/${animal.slug}`}
+                                                // href={`/${animal.slug}`}
+                                                href="/pet-breeds"
                                                 className="w-full"
                                             >
                                                 {animal.label} Breeds
@@ -97,7 +99,7 @@ function Navbar() {
                             asChild
                             className={customNavigationMenuTriggerStyle()}
                         >
-                            <Link href="/">Orgs</Link>
+                            <Link href="/orgs">Orgs</Link>
                         </CustomNavigationMenuLink>
                     </CustomNavigationMenuItem>
                 </CustomNavigationMenuList>
