@@ -8,7 +8,7 @@ import {
 } from "../custom/c_card";
 import { H3Custom, PCustom } from "../typeography/custom";
 import { Friend } from "@/types/types";
-import { getAnimalTypeIcon } from "@/lib/utils";
+import { getAnimalTypeIconDark, getAnimalTypeIconLight } from "@/lib/utils";
 import Image from "next/image";
 import images from "@/images/images";
 import { CustomSeparator } from "../custom/c_separator";
@@ -21,7 +21,10 @@ type PetCardProps = {
 function PetCard({ pet }: PetCardProps) {
     const { theme } = useTheme();
 
-    const friendTypeIcon = getAnimalTypeIcon(pet.type);
+    const friendTypeIcon =
+        theme === "dark"
+            ? getAnimalTypeIconLight(pet.type)
+            : getAnimalTypeIconDark(pet.type);
 
     const friendBackupImage =
         theme === "dark" ? images.coming_soon_dark : images.coming_soon_light;

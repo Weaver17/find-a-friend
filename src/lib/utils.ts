@@ -1,4 +1,4 @@
-import { whiteIcons } from "@/images/icons";
+import { darkIcons, whiteIcons } from "@/images/icons";
 import images from "@/images/images";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -7,8 +7,8 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
-export const getAnimalTypeIcon = (animalType: string) => {
-    let icon = images.paw_outline;
+export const getAnimalTypeIconLight = (animalType: string) => {
+    let icon = images.paw_outline_light;
 
     switch (animalType) {
         case "Dog":
@@ -34,6 +34,39 @@ export const getAnimalTypeIcon = (animalType: string) => {
             break;
         case "Scales, Fins & Other":
             icon = whiteIcons.scales_w;
+            break;
+    }
+
+    return icon;
+};
+
+export const getAnimalTypeIconDark = (animalType: string) => {
+    let icon = images.paw_outline_dark;
+
+    switch (animalType) {
+        case "Dog":
+            icon = darkIcons.dog_d;
+            break;
+        case "Cat":
+            icon = darkIcons.cat_d;
+            break;
+        case "Bird":
+            icon = darkIcons.bird_d;
+            break;
+        case "Rabbit":
+            icon = darkIcons.rabbit_d;
+            break;
+        case "Horse":
+            icon = darkIcons.horse_d;
+            break;
+        case "Small & Furry":
+            icon = darkIcons.fuzzy_d;
+            break;
+        case "Barnyard":
+            icon = darkIcons.barn_d;
+            break;
+        case "Scales, Fins & Other":
+            icon = darkIcons.scales_d;
             break;
     }
 
