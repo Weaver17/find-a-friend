@@ -9,7 +9,7 @@ function Logo() {
     const { theme } = useTheme();
 
     return (
-        <div className="w-[100px] h-[25px] lg:w-[400px] lg:h-[75px]">
+        <div className="w-[200px] h-[40px] md:w-[300px] md:h-[50px] lg:w-[400px] lg:h-[75px]">
             {theme === "dark" ? (
                 <Link href="/">
                     <Image

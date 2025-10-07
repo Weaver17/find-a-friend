@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function HeaderAuthBtns() {
     return (
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-0.5 items-center md:gap-2">
             <CustomButton type="button" className="text-accent!" asChild>
                 <Link href="/signin"> Sign In</Link>
             </CustomButton>
