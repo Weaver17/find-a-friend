@@ -7,7 +7,7 @@ export default function Home() {
             <H1Custom className="text-center">
                 Latest Potential Friends
             </H1Custom>
-            <div className="w-5/6 mx-auto">
+            <div className="max-w-[1100px] mx-auto">
                 <LatestList />
             </div>
         </div>

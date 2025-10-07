@@ -20,7 +20,7 @@ function LatestList() {
     }, []);
 
     return (
-        <ul className="grid grid-cols-3 gap-4">
+        <ul className="grid grid-cols-3 gap-4 lg:grid-cols-2">
             {latestPets.map((pet) => (
                 <li key={pet.id}>
                     <PetCard pet={pet} />
