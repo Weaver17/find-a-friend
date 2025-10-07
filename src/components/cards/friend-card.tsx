@@ -13,18 +13,19 @@ import Image from "next/image";
 import images from "@/images/images";
 import { CustomSeparator } from "../custom/c_separator";
 import { useTheme } from "next-themes";
+import { fr } from "date-fns/locale";
 
-type PetCardProps = {
-    pet: Friend;
+type FriendCardProps = {
+    friend: Friend;
 };
 
-function PetCard({ pet }: PetCardProps) {
+function FriendCard({ friend }: FriendCardProps) {
     const { theme } = useTheme();
 
     const friendTypeIcon =
         theme === "dark"
-            ? getAnimalTypeIconLight(pet.type)
-            : getAnimalTypeIconDark(pet.type);
+            ? getAnimalTypeIconLight(friend.type)
+            : getAnimalTypeIconDark(friend.type);
 
     const friendBackupImage =
         theme === "dark" ? images.coming_soon_dark : images.coming_soon_light;
@@ -35,10 +36,10 @@ function PetCard({ pet }: PetCardProps) {
                 <div className="w-full h-[400px]">
                     <Image
                         src={
-                            pet?.primary_photo_cropped?.large ??
+                            friend?.primary_photo_cropped?.large ??
                             friendBackupImage
                         }
-                        alt={pet.name}
+                        alt={friend.name}
                         height={400}
                         width={240}
                         className="w-[240px] h-[400px] object-cover"
@@ -46,7 +47,7 @@ function PetCard({ pet }: PetCardProps) {
                 </div>
                 <div className="p-2 flex flex-col h-[200px]">
                     <div className=" flex justify-between">
-                        <H3Custom className="truncate">{pet.name}</H3Custom>
+                        <H3Custom className="truncate">{friend.name}</H3Custom>
                         <CustomButton
                             variant="ghost"
                             size="icon-sm"
@@ -57,34 +58,35 @@ function PetCard({ pet }: PetCardProps) {
                     </div>
                     <CustomSeparator />
                     <CustomCardDescription className="p-2 text-xs h-full flex flex-col gap-2 text-foreground">
-                        {pet.breeds.secondary !== null ? (
+                        {friend.breeds.secondary !== null ? (
                             <PCustom className="text-center">
-                                {pet.breeds.primary} | {pet.breeds.secondary}
+                                {friend.breeds.primary} |{" "}
+                                {friend.breeds.secondary}
                             </PCustom>
                         ) : (
                             <PCustom className="text-center">
-                                {pet.breeds.primary}
+                                {friend.breeds.primary}
                             </PCustom>
                         )}
                         <div className="flex justify-between items-center">
                             <PCustom className="text-primary font-semibold dark:text-secondary">
-                                {pet.gender}
+                                {friend.gender}
                             </PCustom>
                             <PCustom className="text-primary font-semibold dark:text-secondary">
-                                {pet.age}
+                                {friend.age}
                             </PCustom>
                             <PCustom className="text-primary font-semibold dark:text-secondary">
-                                {pet.size}
+                                {friend.size}
                             </PCustom>
                         </div>
                         <div className="w-full mt-auto flex justify-between items-end">
                             <Image
                                 src={friendTypeIcon}
-                                alt={pet.type}
+                                alt={friend.type}
                                 width={40}
                                 height={40}
                             />
-                            <PCustom>{pet.species}</PCustom>
+                            <PCustom>{friend.species}</PCustom>
                         </div>
                     </CustomCardDescription>
                 </div>
@@ -93,4 +95,4 @@ function PetCard({ pet }: PetCardProps) {
     );
 }
 
-export default PetCard;
+export default FriendCard;

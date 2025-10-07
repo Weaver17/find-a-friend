@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import PetCard from "../cards/pet-card";
-import { getLatestAnimals } from "@/lib/pet-api";
+import { getLatestFriends } from "@/lib/pet-api";
 import { Friend } from "@/types/types";
 import { LoadingSpinner } from "../custom/c_loading-spinner";
 import {
@@ -13,31 +12,32 @@ import {
     CustomPaginationNext,
     CustomPaginationPrevious,
 } from "../custom/c_pagination";
+import FriendCard from "../cards/friend-card";
 
 function LatestList() {
-    const [latestPets, setLatestPets] = useState<Friend[]>([]);
+    const [latestFriends, setLatestFriends] = useState<Friend[]>([]);
 
     useEffect(() => {
-        const fetchLatestPets = async () => {
-            await getLatestAnimals()
+        const fetchLatestFriends = async () => {
+            await getLatestFriends()
                 .then((data) => {
-                    setLatestPets(data);
+                    setLatestFriends(data);
                 })
                 .catch(console.error);
         };
 
-        fetchLatestPets();
+        fetchLatestFriends();
     }, []);
 
     return (
         <>
-            {latestPets.length === 0 ? (
+            {latestFriends.length === 0 ? (
                 <LoadingSpinner />
             ) : (
                 <ul className="grid grid-cols-1 mx-auto gap-4 md:grid-cols-2 lg:grid-cols-4">
-                    {latestPets.map((pet) => (
-                        <li key={pet.id}>
-                            <PetCard pet={pet} />
+                    {latestFriends.map((friend) => (
+                        <li key={friend.id}>
+                            <FriendCard friend={friend} />
                         </li>
                     ))}
                 </ul>

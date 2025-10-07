@@ -39,7 +39,7 @@ const fetchAccessKey = async () => {
     }
 };
 
-export const getLatestAnimals = async () => {
+export const getLatestFriends = async () => {
     try {
         const accessKey = await fetchAccessKey();
 
