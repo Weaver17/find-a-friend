@@ -1,49 +1,49 @@
+"use client";
 import { Heart } from "lucide-react";
 import { CustomButton } from "../custom/c_button";
 import {
     CustomCard,
-    CustomCardHeader,
     CustomCardContent,
     CustomCardDescription,
-    CustomCardFooter,
 } from "../custom/c_card";
-import { H3Custom, LargeCustom, PCustom } from "../typeography/custom";
+import { H3Custom, PCustom } from "../typeography/custom";
 import { Friend } from "@/types/types";
 import { getAnimalTypeIcon } from "@/lib/utils";
 import Image from "next/image";
-import { CustomAspectRatio } from "../custom/c_aspect-ratio";
 import images from "@/images/images";
 import { CustomSeparator } from "../custom/c_separator";
+import { useTheme } from "next-themes";
 
 type PetCardProps = {
     pet: Friend;
 };
 
 function PetCard({ pet }: PetCardProps) {
+    const { theme } = useTheme();
+
     const friendTypeIcon = getAnimalTypeIcon(pet.type);
 
+    const friendBackupImage =
+        theme === "dark" ? images.coming_soon_dark : images.coming_soon_light;
+
     return (
-        <CustomCard className="overflow-hidden p-0 gap-1 w-[240px] h-[600px] ">
+        <CustomCard className="overflow-hidden p-0 gap-1 w-[240px] h-[600px]">
             <CustomCardContent className="p-0 w-full  flex flex-col">
                 <div className="w-full h-[400px]">
-                    <CustomAspectRatio
-                        ratio={10 / 16}
-                        className="w-full h-full"
-                    >
-                        <Image
-                            src={
-                                pet?.primary_photo_cropped?.large ??
-                                images.paw_outline
-                            }
-                            alt={pet.name}
-                            fill
-                            className="w-full h-full object-cover"
-                        />
-                    </CustomAspectRatio>
+                    <Image
+                        src={
+                            pet?.primary_photo_cropped?.large ??
+                            friendBackupImage
+                        }
+                        alt={pet.name}
+                        height={400}
+                        width={240}
+                        className="w-[240px] h-[400px] object-cover"
+                    />
                 </div>
                 <div className="p-2 flex flex-col h-[200px]">
                     <div className=" flex justify-between">
-                        <H3Custom>{pet.name}</H3Custom>
+                        <H3Custom className="truncate">{pet.name}</H3Custom>
                         <CustomButton
                             variant="ghost"
                             size="icon-sm"
