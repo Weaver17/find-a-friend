@@ -16,7 +16,7 @@ import { whiteIcons } from "@/images/icons";
 function Navbar() {
     return (
         <nav className="bg-secondary rounded-sm px-6 py-2 border">
-            <CustomNavigationMenu viewport={false}>
+            <CustomNavigationMenu viewport={false} className="z-50">
                 <CustomNavigationMenuList className="gap-6">
                     <CustomNavigationMenuItem>
                         <CustomNavigationMenuLink
@@ -30,7 +30,7 @@ function Navbar() {
                         <CustomNavigationMenuTrigger>
                             Animals
                         </CustomNavigationMenuTrigger>
-                        <CustomNavigationMenuContent className="bg-secondary! w-[360px]! ">
+                        <CustomNavigationMenuContent className="bg-secondary! w-[360px]! z-50">
                             <ul className="flex flex-col gap-2">
                                 {ANIMAL_TYPES.map((animal) => (
                                     <li
@@ -64,7 +64,7 @@ function Navbar() {
                         <CustomNavigationMenuTrigger>
                             Breeds
                         </CustomNavigationMenuTrigger>
-                        <CustomNavigationMenuContent className="bg-secondary! w-[360px]! ">
+                        <CustomNavigationMenuContent className="bg-secondary! w-[360px]! z-50">
                             <ul className="flex flex-col gap-2">
                                 {ANIMAL_BREEDS.map((animal) => (
                                     <li
