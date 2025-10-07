@@ -78,8 +78,7 @@ function Navbar() {
                                             className={customNavigationMenuTriggerStyle()}
                                         >
                                             <Link
-                                                // href={`/${animal.slug}`}
-                                                href="/pet-breeds"
+                                                href={`/pet-breeds/${animal.slug}`}
                                                 className="w-full text-xs md:text-base"
                                             >
                                                 {animal.label} Breeds

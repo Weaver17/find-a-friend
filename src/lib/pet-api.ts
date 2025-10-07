@@ -79,9 +79,29 @@ export const getSingleAnimalType = async (animalType: string) => {
             },
         });
 
-        console.log(data.type);
-
         return data.type;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+// getting specific animal breeds
+export const getSingleAnimalBreeds = async (animalType: string) => {
+    try {
+        const accessKey = await fetchAccessKey();
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const data = await request(`${BASE_URL}/types/${animalType}/breeds`, {
+            headers: {
+                Authorization: `Bearer ${accessKey}`,
+            },
+        });
+
+        return data.breeds;
     } catch (error) {
         console.error(error);
         throw error;
