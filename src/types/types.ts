@@ -97,3 +97,12 @@ export type AnimalType = {
         };
     };
 };
+
+export type Breed = {
+    name: string;
+    _links: {
+        self: {
+            href: string;
+        };
+    };
+};
