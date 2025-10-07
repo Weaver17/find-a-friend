@@ -23,9 +23,9 @@ function PetCard({ pet }: PetCardProps) {
     const friendTypeIcon = getAnimalTypeIcon(pet.type);
 
     return (
-        <CustomCard className="overflow-hidden p-0 gap-1 w-[320px] h-[400px] lg:w-[550px] lg:flex-row">
-            <CustomCardContent className="pl-0 w-full flex flex-row gap-4">
-                <div className="w-1/2 h-full">
+        <CustomCard className="overflow-hidden p-0 gap-1 w-[240px] h-[600px] ">
+            <CustomCardContent className="p-0 w-full  flex flex-col">
+                <div className="w-full h-[400px]">
                     <CustomAspectRatio
                         ratio={10 / 16}
                         className="w-full h-full"
@@ -41,8 +41,8 @@ function PetCard({ pet }: PetCardProps) {
                         />
                     </CustomAspectRatio>
                 </div>
-                <div className="flex flex-col w-1/2 h-full">
-                    <div className="p-2 flex justify-between items-center">
+                <div className="p-2 flex flex-col h-[200px]">
+                    <div className=" flex justify-between">
                         <H3Custom>{pet.name}</H3Custom>
                         <CustomButton
                             variant="ghost"
@@ -53,7 +53,7 @@ function PetCard({ pet }: PetCardProps) {
                         </CustomButton>
                     </div>
                     <CustomSeparator />
-                    <CustomCardDescription className="p-2 h-full flex flex-col justify-between gap-2 text-foreground">
+                    <CustomCardDescription className="p-2 text-xs h-full flex flex-col gap-2 text-foreground">
                         {pet.breeds.secondary !== null ? (
                             <PCustom className="text-center">
                                 {pet.breeds.primary} | {pet.breeds.secondary}
@@ -63,12 +63,18 @@ function PetCard({ pet }: PetCardProps) {
                                 {pet.breeds.primary}
                             </PCustom>
                         )}
-                        <div className="h-1/2 flex flex-col justify-between items-center">
-                            <PCustom>Gender</PCustom>
-                            <PCustom>Age</PCustom>
-                            <PCustom>Size</PCustom>
-                        </div>{" "}
-                        <div className="w-full flex justify-between items-center">
+                        <div className="flex justify-between items-center">
+                            <PCustom className="text-primary font-semibold dark:text-secondary">
+                                {pet.gender}
+                            </PCustom>
+                            <PCustom className="text-primary font-semibold dark:text-secondary">
+                                {pet.age}
+                            </PCustom>
+                            <PCustom className="text-primary font-semibold dark:text-secondary">
+                                {pet.size}
+                            </PCustom>
+                        </div>
+                        <div className="w-full mt-auto flex justify-between items-end">
                             <Image
                                 src={friendTypeIcon}
                                 alt={pet.type}
@@ -77,7 +83,7 @@ function PetCard({ pet }: PetCardProps) {
                             />
                             <PCustom>{pet.species}</PCustom>
                         </div>
-                    </CustomCardDescription>{" "}
+                    </CustomCardDescription>
                 </div>
             </CustomCardContent>
         </CustomCard>

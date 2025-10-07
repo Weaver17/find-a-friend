@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import {
     Inter as font_header,
-    Newsreader as font_sans,
+    Syne as font_sans,
     Cascadia_Mono as font_mono,
 } from "next/font/google";
 import "./globals.css";
@@ -16,6 +16,7 @@ const fontHeader = font_header({
 const fontSans = font_sans({
     variable: "--font-font-sans",
     subsets: ["latin"],
+    weight: "400",
 });
 
 const fontMono = font_mono({
