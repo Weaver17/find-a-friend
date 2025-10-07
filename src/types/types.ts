@@ -82,3 +82,18 @@ export type Friend = {
         };
     };
 };
+
+export type AnimalType = {
+    coats: string[];
+    colors: string[];
+    genders: string[];
+    name: string;
+    _links: {
+        breeds: {
+            href: string;
+        };
+        self: {
+            href: string;
+        };
+    };
+};

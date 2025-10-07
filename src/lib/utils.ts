@@ -72,3 +72,27 @@ export const getAnimalTypeIconDark = (animalType: string) => {
 
     return icon;
 };
+
+export const getScientificName = (animalType: string) => {
+    let scientificName = "N/A";
+
+    switch (animalType) {
+        case "dog":
+            scientificName = "Canis lupus familiaris";
+            break;
+        case "cat":
+            scientificName = "Felis catus";
+            break;
+        case "bird":
+            scientificName = "Aves";
+            break;
+        case "rabbit":
+            scientificName = "Oryctolagus cuniculus";
+            break;
+        case "horse":
+            scientificName = "Equus caballus";
+            break;
+    }
+
+    return scientificName;
+};

@@ -1,3 +1,5 @@
+import { da } from "date-fns/locale";
+
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL!;
 const CLIENT_ID = process.env.NEXT_PUBLIC_CLIENT_ID!;
 const CLIENT_SECRET = process.env.NEXT_PUBLIC_CLIENT_API_SECRET!;
@@ -14,6 +16,7 @@ export async function request(
     return handleServerResponse(res);
 }
 
+// getting access token
 const fetchAccessKey = async () => {
     try {
         const body = `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`;
@@ -39,6 +42,7 @@ const fetchAccessKey = async () => {
     }
 };
 
+// getting latest animals
 export const getLatestFriends = async () => {
     try {
         const accessKey = await fetchAccessKey();
@@ -54,6 +58,30 @@ export const getLatestFriends = async () => {
         });
 
         return data.animals;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+// getting specific animal type
+export const getSingleAnimalType = async (animalType: string) => {
+    try {
+        const accessKey = await fetchAccessKey();
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const data = await request(`${BASE_URL}/types/${animalType}`, {
+            headers: {
+                Authorization: `Bearer ${accessKey}`,
+            },
+        });
+
+        console.log(data.type);
+
+        return data.type;
     } catch (error) {
         console.error(error);
         throw error;
