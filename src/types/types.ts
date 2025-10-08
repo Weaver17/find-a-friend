@@ -106,3 +106,72 @@ export type Breed = {
         };
     };
 };
+
+export type TOrgsFetch = {
+    organizations: Org[];
+    pagination: Pagination;
+};
+
+export type Org = {
+    address: {
+        address1: string | null;
+        address2: string | null;
+        city: string;
+        state: string;
+        postcode: string;
+        country: string;
+    };
+    adoption: {
+        policy: string | null;
+        url: string | null;
+    };
+    distance: number | null;
+    email: string | null;
+    hours: {
+        monday: string | null;
+        tuesday: string | null;
+        wednesday: string | null;
+        thursday: string | null;
+        friday: string | null;
+        saturday: string | null;
+        sunday: string | null;
+    };
+    id: string;
+    mission_statement: string | null;
+    name: string;
+    phone: string | null;
+    photos: {
+        full: string;
+        large: string;
+        medium: string;
+        small: string;
+    }[];
+    url: string;
+    website: string | null;
+    _links: {
+        animals: {
+            href: string;
+        };
+        self: {
+            href: string;
+        };
+    };
+};
+
+export type Pagination = {
+    count_per_page: number;
+    current_page: number;
+    total_pages: number;
+    total_count: number;
+    _links?: {
+        first?: {
+            href: string;
+        };
+        next?: {
+            href: string;
+        };
+        last?: {
+            href: string;
+        };
+    };
+};

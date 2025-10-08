@@ -57,6 +57,7 @@ function Page() {
                 <div>
                     <H2Custom>Breeds</H2Custom>
                 </div>
+                {/* letter picker  */}
                 <div className="text-sm text-muted-dark">
                     <ul
                         id="alphabet-list"

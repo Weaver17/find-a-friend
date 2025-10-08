@@ -107,3 +107,24 @@ export const getSingleAnimalBreeds = async (animalType: string) => {
         throw error;
     }
 };
+
+export const getAllOrgs = async (page: number) => {
+    try {
+        const accessKey = await fetchAccessKey();
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const data = await request(`${BASE_URL}/organizations?page=${page}`, {
+            headers: {
+                Authorization: `Bearer ${accessKey}`,
+            },
+        });
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
