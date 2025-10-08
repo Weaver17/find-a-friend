@@ -4,7 +4,7 @@ import { LoadingSpinner } from "@/components/custom/c_loading-spinner";
 import { H1Custom, H2Custom, H3Custom } from "@/components/typeography/custom";
 import { ALPHABET } from "@/lib/constants";
 import { getSingleAnimalBreeds, getSingleAnimalType } from "@/lib/pet-api";
-import { getScientificName } from "@/lib/utils";
+import { getScientificName, slugify } from "@/lib/utils";
 import { AnimalType, Breed } from "@/types/types";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -111,15 +111,22 @@ function Page() {
                                     {letter.toUpperCase()}
                                 </H3Custom>
                                 <ul className="flex flex-wrap justify-center gap-4 max-w-[1100px]">
-                                    {breedsForLetter.map((breed) => (
-                                        <li key={breed.name}>
-                                            <CustomButton size="lg" asChild>
-                                                <Link href="#">
-                                                    {breed.name}
-                                                </Link>
-                                            </CustomButton>
-                                        </li>
-                                    ))}
+                                    {breedsForLetter.map((breed) => {
+                                        const breedNameSlug = slugify(
+                                            breed.name
+                                        );
+                                        return (
+                                            <li key={breed.name}>
+                                                <CustomButton size="lg" asChild>
+                                                    <Link
+                                                        href={`/pet-breeds/${params.animal}/${breedNameSlug}`}
+                                                    >
+                                                        {breed.name}
+                                                    </Link>
+                                                </CustomButton>
+                                            </li>
+                                        );
+                                    })}
                                 </ul>
                             </div>
                         );

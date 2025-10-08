@@ -7,6 +7,20 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
+export function slugify(text: string) {
+    return text
+        .toLowerCase()
+        .replace(/[ ,&/]+/g, "-") // Replace space, comma, ampersand with -
+        .replace(/'+/g, "") // Remove single quotes
+        .replace(/(^-+)|(-+$)/g, ""); // Trim leading/trailing dashes
+}
+
+export function deslugify(slug: string) {
+    return slug
+        .replace(/-+/g, " ") // Replace one or more dashes with a space
+        .trim(); // Clean leading/trailing spaces
+}
+
 export const getAnimalTypeIconLight = (animalType: string) => {
     let icon = images.paw_outline_light;
 
