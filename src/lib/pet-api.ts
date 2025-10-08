@@ -64,6 +64,28 @@ export const getLatestFriends = async () => {
     }
 };
 
+// getting animal by ID
+export const getFriendById = async (id: string) => {
+    try {
+        const accessKey = await fetchAccessKey();
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const data = await request(`${BASE_URL}/animals/${id}`, {
+            headers: {
+                Authorization: `Bearer ${accessKey}`,
+            },
+        });
+
+        return data.animal;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
 // getting specific animal type
 export const getSingleAnimalType = async (animalType: string) => {
     try {
