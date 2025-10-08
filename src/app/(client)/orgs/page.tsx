@@ -55,7 +55,7 @@ function Page() {
                         {orgs.map((org) => (
                             <li key={org.id} className="mx-auto">
                                 <CustomButton asChild>
-                                    <Link href={`/orgs/${org.id}`}>
+                                    <Link href={`/orgs/org/${org.id}`}>
                                         {org.name}
                                     </Link>
                                 </CustomButton>

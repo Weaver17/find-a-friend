@@ -130,6 +130,7 @@ export const getSingleAnimalBreeds = async (animalType: string) => {
     }
 };
 
+// getting all orgs
 export const getAllOrgs = async (page: number) => {
     try {
         const accessKey = await fetchAccessKey();
@@ -145,6 +146,28 @@ export const getAllOrgs = async (page: number) => {
         });
 
         return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+// getting single org by ID
+export const getOrgById = async (id: string) => {
+    try {
+        const accessKey = await fetchAccessKey();
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const data = await request(`${BASE_URL}/organizations/${id}`, {
+            headers: {
+                Authorization: `Bearer ${accessKey}`,
+            },
+        });
+
+        return data.organization;
     } catch (error) {
         console.error(error);
         throw error;
