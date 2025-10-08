@@ -13,7 +13,7 @@ import Image from "next/image";
 import images from "@/images/images";
 import { CustomSeparator } from "../custom/c_separator";
 import { useTheme } from "next-themes";
-import { fr } from "date-fns/locale";
+import Link from "next/link";
 
 type FriendCardProps = {
     friend: Friend;
@@ -34,16 +34,18 @@ function FriendCard({ friend }: FriendCardProps) {
         <CustomCard className="overflow-hidden p-0 gap-1 w-[240px] h-[600px]">
             <CustomCardContent className="p-0 w-full  flex flex-col">
                 <div className="w-full h-[400px]">
-                    <Image
-                        src={
-                            friend?.primary_photo_cropped?.large ??
-                            friendBackupImage
-                        }
-                        alt={friend.name}
-                        height={400}
-                        width={240}
-                        className="w-[240px] h-[400px] object-cover"
-                    />
+                    <Link href={`/pet/${friend.id}`}>
+                        <Image
+                            src={
+                                friend?.primary_photo_cropped?.large ??
+                                friendBackupImage
+                            }
+                            alt={friend.name}
+                            height={400}
+                            width={240}
+                            className="w-[240px] h-[400px] object-cover"
+                        />
+                    </Link>
                 </div>
                 <div className="p-2 flex flex-col h-[200px]">
                     <div className=" flex justify-between">
