@@ -63,7 +63,9 @@ function Page() {
                             <li key={gender}>
                                 <CustomButton size="lg" variant="link" asChild>
                                     <Link
-                                        href={`/pet-types/${params.animal}/${gender}`}
+                                        href={`/pet-types/${
+                                            params.animal
+                                        }/gender/${gender.toLowerCase()}`}
                                     >
                                         {gender}
                                     </Link>
@@ -87,7 +89,13 @@ function Page() {
                                         size="lg"
                                         asChild
                                     >
-                                        <Link href="#">{coat}</Link>
+                                        <Link
+                                            href={`/pet-types/${
+                                                params.animal
+                                            }/coat/${coat.toLowerCase()}`}
+                                        >
+                                            {coat}
+                                        </Link>
                                     </CustomButton>
                                 </li>
                             ))}

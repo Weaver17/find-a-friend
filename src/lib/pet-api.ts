@@ -136,6 +136,34 @@ export const getAnimalsByTypeAndGender = async (
     }
 };
 
+// getting animals by type and coat
+export const getAnimalsByTypeAndCoat = async (
+    animalType: string,
+    coat: string
+) => {
+    try {
+        const accessKey = await fetchAccessKey();
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const data = await request(
+            `${BASE_URL}/animals?type=${animalType}&coat=${coat}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessKey}`,
+                },
+            }
+        );
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
 // getting specific animal breeds
 export const getSingleAnimalBreeds = async (animalType: string) => {
     try {
