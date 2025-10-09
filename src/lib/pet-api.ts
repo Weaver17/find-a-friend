@@ -130,6 +130,31 @@ export const getSingleAnimalBreeds = async (animalType: string) => {
     }
 };
 
+// getting all animals of specific breed
+export const getAnimalsOfBreed = async (animalType: string, breed: string) => {
+    try {
+        const accessKey = await fetchAccessKey();
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const data = await request(
+            `${BASE_URL}/animals?type=${animalType}&breed=${breed}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessKey}`,
+                },
+            }
+        );
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
 // getting all orgs
 export const getAllOrgs = async (page: number) => {
     try {
