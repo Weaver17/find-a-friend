@@ -77,9 +77,13 @@ function Page() {
             </div>
             <div className=" flex flex-col gap-8 mx-auto w-full lg:justify-evenly lg:flex-row">
                 <div className="flex flex-col items-center gap-4">
-                    <H3Custom>Coats</H3Custom>
-                    {type === null ? (
-                        <LoadingSpinner />
+                    {type?.coats.length === 0 ? (
+                        <></>
+                    ) : (
+                        <H3Custom>Coats</H3Custom>
+                    )}
+                    {type?.coats.length === 0 ? (
+                        <></>
                     ) : (
                         <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
                             {type?.coats.map((coat) => (
@@ -103,9 +107,14 @@ function Page() {
                     )}
                 </div>
                 <div className="flex flex-col items-center justify-center gap-4">
-                    <H3Custom>Colors</H3Custom>
-                    {type === null ? (
-                        <LoadingSpinner />
+                    {type?.colors.length === 0 ? (
+                        <></>
+                    ) : (
+                        <H3Custom>Colors</H3Custom>
+                    )}
+
+                    {type?.colors.length === 0 ? (
+                        <></>
                     ) : (
                         <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
                             {type?.colors.map((color) => {
