@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
 export function slugify(text: string) {
     return text
         .toLowerCase()
-        .replace(/[ ,&/]+/g, "-") // Replace space, comma, ampersand with -
+        .replace(/[ ,&/)(]+/g, "-") // Replace space, comma, ampersand with -
         .replace(/'+/g, "") // Remove single quotes
         .replace(/(^-+)|(-+$)/g, ""); // Trim leading/trailing dashes
 }
