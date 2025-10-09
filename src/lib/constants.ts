@@ -10,7 +10,7 @@ export const ANIMAL_TYPES = [
         slug: "small-furry",
         icon: whiteIcons.fuzzy_w,
     },
-    { label: "Horses", slug: "horses", icon: whiteIcons.horse_w },
+    { label: "Horses", slug: "horse", icon: whiteIcons.horse_w },
     {
         label: "Scales, Fins, & Other",
         slug: "scales-fins-other",

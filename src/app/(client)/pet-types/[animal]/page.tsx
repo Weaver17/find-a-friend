@@ -62,7 +62,11 @@ function Page() {
                         {type?.genders.map((gender) => (
                             <li key={gender}>
                                 <CustomButton size="lg" variant="link" asChild>
-                                    <Link href="#">{gender}</Link>
+                                    <Link
+                                        href={`/pet-types/${params.animal}/${gender}`}
+                                    >
+                                        {gender}
+                                    </Link>
                                 </CustomButton>
                             </li>
                         ))}
