@@ -6,7 +6,7 @@ import {
 } from "@/components/custom/c_loading-spinner";
 import { H1Custom, H2Custom, H3Custom } from "@/components/typeography/custom";
 import { getSingleAnimalType } from "@/lib/pet-api";
-import { getScientificName } from "@/lib/utils";
+import { getScientificName, slugify } from "@/lib/utils";
 import { AnimalType } from "@/types/types";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -62,7 +62,13 @@ function Page() {
                         {type?.genders.map((gender) => (
                             <li key={gender}>
                                 <CustomButton size="lg" variant="link" asChild>
-                                    <Link href="#">{gender}</Link>
+                                    <Link
+                                        href={`/pet-types/${
+                                            params.animal
+                                        }/gender/${gender.toLowerCase()}`}
+                                    >
+                                        {gender}
+                                    </Link>
                                 </CustomButton>
                             </li>
                         ))}
@@ -71,9 +77,13 @@ function Page() {
             </div>
             <div className=" flex flex-col gap-8 mx-auto w-full lg:justify-evenly lg:flex-row">
                 <div className="flex flex-col items-center gap-4">
-                    <H3Custom>Coats</H3Custom>
-                    {type === null ? (
-                        <LoadingSpinner />
+                    {type?.coats.length === 0 ? (
+                        <></>
+                    ) : (
+                        <H3Custom>Coats</H3Custom>
+                    )}
+                    {type?.coats.length === 0 ? (
+                        <></>
                     ) : (
                         <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
                             {type?.coats.map((coat) => (
@@ -83,7 +93,13 @@ function Page() {
                                         size="lg"
                                         asChild
                                     >
-                                        <Link href="#">{coat}</Link>
+                                        <Link
+                                            href={`/pet-types/${
+                                                params.animal
+                                            }/coat/${coat.toLowerCase()}`}
+                                        >
+                                            {coat}
+                                        </Link>
                                     </CustomButton>
                                 </li>
                             ))}
@@ -91,22 +107,35 @@ function Page() {
                     )}
                 </div>
                 <div className="flex flex-col items-center justify-center gap-4">
-                    <H3Custom>Colors</H3Custom>
-                    {type === null ? (
-                        <LoadingSpinner />
+                    {type?.colors.length === 0 ? (
+                        <></>
+                    ) : (
+                        <H3Custom>Colors</H3Custom>
+                    )}
+
+                    {type?.colors.length === 0 ? (
+                        <></>
                     ) : (
                         <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                            {type?.colors.map((color) => (
-                                <li key={color}>
-                                    <CustomButton
-                                        className="w-[200px] text-sm"
-                                        size="lg"
-                                        asChild
-                                    >
-                                        <Link href="#">{color}</Link>
-                                    </CustomButton>
-                                </li>
-                            ))}
+                            {type?.colors.map((color) => {
+                                const colorSlug = slugify(color);
+
+                                return (
+                                    <li key={color}>
+                                        <CustomButton
+                                            className="w-[200px] text-sm"
+                                            size="lg"
+                                            asChild
+                                        >
+                                            <Link
+                                                href={`/pet-types/${params.animal}/color/${colorSlug}`}
+                                            >
+                                                {color}
+                                            </Link>
+                                        </CustomButton>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     )}
                 </div>

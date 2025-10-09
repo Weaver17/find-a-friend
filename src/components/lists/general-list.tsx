@@ -1,11 +1,11 @@
 import { Friend } from "@/types/types";
 import FriendCard from "../cards/friend-card";
 
-type ListByBreedProps = {
+type GeneralListProps = {
     friends: Friend[];
 };
 
-function ListByBreed({ friends }: ListByBreedProps) {
+function GeneralList({ friends }: GeneralListProps) {
     return (
         <ul className="grid grid-cols-1 mx-auto gap-4 md:grid-cols-2 lg:grid-cols-4">
             {friends.map((friend) => (
@@ -17,4 +17,4 @@ function ListByBreed({ friends }: ListByBreedProps) {
     );
 }
 
-export default ListByBreed;
+export default GeneralList;

@@ -108,6 +108,90 @@ export const getSingleAnimalType = async (animalType: string) => {
     }
 };
 
+// getting animals by type an gender
+export const getAnimalsByTypeAndGender = async (
+    animalType: string,
+    gender: string
+) => {
+    try {
+        const accessKey = await fetchAccessKey();
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const data = await request(
+            `${BASE_URL}/animals?type=${animalType}&gender=${gender}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessKey}`,
+                },
+            }
+        );
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+// getting animals by type and coat
+export const getAnimalsByTypeAndCoat = async (
+    animalType: string,
+    coat: string
+) => {
+    try {
+        const accessKey = await fetchAccessKey();
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const data = await request(
+            `${BASE_URL}/animals?type=${animalType}&coat=${coat}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessKey}`,
+                },
+            }
+        );
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+// getting animals by type and color
+export const getAnimalsByTypeAndColor = async (
+    animalType: string,
+    color: string
+) => {
+    try {
+        const accessKey = await fetchAccessKey();
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const data = await request(
+            `${BASE_URL}/animals?type=${animalType}&color=${color}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessKey}`,
+                },
+            }
+        );
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
 // getting specific animal breeds
 export const getSingleAnimalBreeds = async (animalType: string) => {
     try {
