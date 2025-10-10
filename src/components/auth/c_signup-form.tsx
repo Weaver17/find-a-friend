@@ -46,8 +46,8 @@ export function CustomSignupForm({
 
     return (
         <CustomCard {...props} className="gap-4">
-            <CustomCardHeader>
-                <CustomCardTitle>Create an account</CustomCardTitle>
+            <CustomCardHeader className="flex-col">
+                <CustomCardTitle>Sign Up</CustomCardTitle>
                 <CustomCardDescription>
                     Enter your information below to create your account
                 </CustomCardDescription>
@@ -161,7 +161,7 @@ export function CustomSignupForm({
                             />
 
                             <CustomFieldSeparator />
-                            <CustomButton>Create Account</CustomButton>
+                            <CustomButton>Sign Up</CustomButton>
 
                             <CustomFieldDescription className="px-6 text-center">
                                 Already have an account?{" "}

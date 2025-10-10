@@ -1,3 +1,4 @@
+import { CustomThemeBtn } from "@/components/theme/c_theme-btn";
 import React from "react";
 
 function AuthLayout({
@@ -5,7 +6,14 @@ function AuthLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    return <main>{children}</main>;
+    return (
+        <main className="relative">
+            <div className="fixed top-4 left-4 z-50">
+                <CustomThemeBtn />
+            </div>
+            {children}
+        </main>
+    );
 }
 
 export default AuthLayout;

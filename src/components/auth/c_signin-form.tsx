@@ -46,8 +46,8 @@ export function CustomSignInForm({
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
             <CustomCard className="gap-4">
-                <CustomCardHeader>
-                    <CustomCardTitle>Login to your account</CustomCardTitle>
+                <CustomCardHeader className="flex-col">
+                    <CustomCardTitle>Sign In</CustomCardTitle>
                     <CustomCardDescription>
                         Enter your email below to login to your account
                     </CustomCardDescription>
