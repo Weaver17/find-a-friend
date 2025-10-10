@@ -1,3 +1,14 @@
+import {
+    signInSchema,
+    signUpSchema,
+    betterAtuhSignUpSchema,
+} from "@/schema/authSchema";
+import z from "zod";
+
+export type TSignInSchema = z.infer<typeof signInSchema>;
+export type TSignUpSchema = z.infer<typeof signUpSchema>;
+export type TBetterAuthSignUpSchema = z.infer<typeof betterAtuhSignUpSchema>;
+
 export type NavbarOption = {
     label: string;
     slug: string;

@@ -15,15 +15,16 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  name          String    @unique
-  emailVerified Boolean   @default(false)
+  id            String        @id @default(cuid())
+  email         String        @unique
+  name          String
+  emailVerified Boolean       @default(false)
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now()) @updatedAt
   sessions      Session[]
   accounts      Account[]
+  SavedFriend   SavedFriend[]
 
   @@map("user")
 }
@@ -71,4 +72,128 @@ model Verification {
   updatedAt  DateTime @default(now()) @updatedAt
 
   @@map("verification")
+}
+
+model SavedFriend {
+  saved_id             String        @id @default(cuid())
+  id                   Int           @unique
+  userId               String
+  user                 User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organizationId       String
+  url                  String
+  type                 String
+  species              String
+  breeds               Breeds?
+  colors               Colors?
+  age                  String
+  gender               String
+  size                 String
+  coat                 String
+  attributes           Attributes?
+  environment          Environment?
+  tags                 String[]
+  name                 String
+  description          String
+  organizationAnimalId String?
+  photos               Photo[]
+  primaryPhotoCropped  PrimaryPhoto?
+  videos               Video[]
+  status               String
+  statusChangedAt      DateTime
+  publishedAt          DateTime
+  distance             Float?
+  contact              Contact?
+  links                Links?
+  createdAt            DateTime      @default(now())
+  photoId              String?
+
+  @@index([userId])
+}
+
+model Breeds {
+  id        String  @id
+  primary   String
+  secondary String?
+  mixed     Boolean
+  unknown   Boolean
+
+  savedFriend SavedFriend @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+}
+
+model Colors {
+  id          String      @id
+  primary     String
+  secondary   String?
+  tertiary    String?
+  savedFriend SavedFriend @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+}
+
+model Attributes {
+  id             String      @id
+  spayedNeutered Boolean
+  houseTrained   Boolean
+  declawed       Boolean?
+  specialNeeds   Boolean
+  shotsCurrent   Boolean
+  savedFriend    SavedFriend @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+}
+
+model Environment {
+  id          String      @id
+  children    Boolean
+  dogs        Boolean
+  cats        Boolean
+  savedFriend SavedFriend @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+}
+
+model Photo {
+  id          String       @id
+  small       String
+  medium      String
+  large       String
+  full        String
+  savedFriend SavedFriend? @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+}
+
+model PrimaryPhoto {
+  id          String       @id
+  small       String
+  medium      String
+  large       String
+  full        String
+  savedFriend SavedFriend? @relation(fields: [id], references: [saved_id])
+}
+
+model Contact {
+  id          String      @id
+  email       String
+  phone       String
+  address     Address?
+  savedFriend SavedFriend @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+}
+
+model Address {
+  id       String  @id
+  address1 String?
+  address2 String?
+  city     String
+  state    String
+  postcode String
+  country  String
+  contact  Contact @relation(fields: [id], references: [id], onDelete: Cascade)
+}
+
+model Links {
+  id          String      @id
+  savedFriend SavedFriend @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+
+  self         Json
+  type         Json
+  organization Json
+}
+
+model Video {
+  id          String      @id
+  embed       String
+  SavedFriend SavedFriend @relation(fields: [id], references: [saved_id], onDelete: Cascade)
 }
