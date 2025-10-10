@@ -42,3 +42,4 @@ next-env.d.ts
 
 todo.txt
 /src/generated/prisma
+index.ts

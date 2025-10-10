@@ -26,6 +26,8 @@ import ShowPasswordBtn from "../buttons/show-password-btn";
 import { useSignUpFormContext } from "@/hooks/use-auth-context";
 import { TSignUpSchema } from "@/types/types";
 import { CustomSpinner } from "../custom/c_spinner";
+import { useUserContext } from "@/contexts/user-context";
+import { toast } from "sonner";
 
 export function CustomSignupForm({
     ...props
@@ -35,6 +37,8 @@ export function CustomSignupForm({
 
     const signUpForm = useSignUpFormContext();
 
+    const { signUp } = useUserContext();
+
     const {
         handleSubmit,
         formState: { errors, isSubmitting },
@@ -43,8 +47,20 @@ export function CustomSignupForm({
     const onSubmit = async (data: TSignUpSchema) => {
         try {
             console.log(data);
+            await signUp(
+                {
+                    name: data.name,
+                    email: data.email,
+                },
+                data.password,
+                data.confirmPassword
+            );
+            toast.success(
+                "Signed Up Successfully! Please sign in to continue..."
+            );
         } catch (error) {
             console.error(error);
+            toast.error("Invalid Credentials");
         }
     };
 

@@ -15,9 +15,6 @@ import {
     CustomFieldGroup,
     CustomFieldSeparator,
 } from "../custom/c_field";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import {
     CustomForm,
     CustomFormDescription,
@@ -27,11 +24,11 @@ import {
 } from "../custom/c_form";
 import { useState } from "react";
 import ShowPasswordBtn from "../buttons/show-password-btn";
-
-const formSchema = z.object({
-    email: z.email(),
-    password: z.string().min(8),
-});
+import { useSignInFormContext } from "@/hooks/use-auth-context";
+import { TSignInSchema } from "@/types/types";
+import { CustomSpinner } from "../custom/c_spinner";
+import { useUserContext } from "@/contexts/user-context";
+import { toast } from "sonner";
 
 export function CustomSignInForm({
     className,
@@ -39,9 +36,27 @@ export function CustomSignInForm({
 }: React.ComponentProps<"div">) {
     const [showPassword, setShowPassword] = useState(false);
 
-    const signInForm = useForm({
-        resolver: zodResolver(formSchema),
-    });
+    const signInForm = useSignInFormContext();
+
+    const { login } = useUserContext();
+
+    const {
+        handleSubmit,
+        formState: { errors, isSubmitting },
+    } = signInForm;
+
+    const onSubmit = async (data: TSignInSchema) => {
+        try {
+            console.log(data);
+            await login(data);
+            toast.success(
+                "Signed In Successfully! Sending you to the homepage..."
+            );
+        } catch (error) {
+            console.error(error);
+            toast.error("Invalid Credentials");
+        }
+    };
 
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -56,7 +71,7 @@ export function CustomSignInForm({
 
                 <CustomCardContent>
                     <CustomForm {...signInForm}>
-                        <form>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <CustomFieldGroup>
                                 <CustomFormField
                                     control={signInForm.control}
@@ -115,7 +130,13 @@ export function CustomSignInForm({
                                 />
 
                                 <CustomFieldSeparator />
-                                <CustomButton>Sign In</CustomButton>
+                                <CustomButton>
+                                    {isSubmitting ? (
+                                        <CustomSpinner />
+                                    ) : (
+                                        "Sign In"
+                                    )}
+                                </CustomButton>
                                 <CustomFieldDescription className="text-center">
                                     Don&apos;t have an account?{" "}
                                     <Link href="/signup">Sign up</Link>

@@ -15,5 +15,4 @@ export const signUpSchema = z.object({
 export const betterAtuhSignUpSchema = z.object({
     name: z.string().min(4).max(24),
     email: z.email(),
-    image: z.string(),
 });
