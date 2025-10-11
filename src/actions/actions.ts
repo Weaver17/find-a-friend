@@ -8,7 +8,6 @@ import {
 } from "@/types/types";
 import { auth } from "../../utils/auth";
 import { headers } from "next/headers";
-import { da, vi } from "date-fns/locale";
 
 export async function createUser(
     { name, email }: TBetterAuthSignUpSchema,
@@ -95,7 +94,7 @@ export async function getUserById(id: string) {
                 id: id,
             },
             include: {
-                SavedFriend: true,
+                savedFriends: true,
             },
         });
         return user;
@@ -135,9 +134,14 @@ export async function saveFriendAction(
     data: TSavedFriendSchema
 ) {
     try {
+        console.log("saving friend...");
+
         const user = await prisma.user.findUnique({
             where: {
                 email: email,
+            },
+            include: {
+                savedFriends: true,
             },
         });
 
@@ -156,7 +160,7 @@ export async function saveFriendAction(
             _links,
         } = data;
 
-        await prisma.savedFriend.create({
+        await prisma.savedFriends.create({
             data: {
                 userId: user.id,
                 age: data.age,
@@ -255,6 +259,8 @@ export async function saveFriendAction(
             },
         });
 
+        console.log("saved friend");
+
         return user;
     } catch (error) {
         console.error(error);
@@ -269,7 +275,7 @@ export const getSavedFriendsAction = async (email: string) => {
                 email: email,
             },
             include: {
-                SavedFriend: true,
+                savedFriends: true,
             },
         });
 
@@ -277,7 +283,7 @@ export const getSavedFriendsAction = async (email: string) => {
             throw new Error("No account associated with that email");
         }
 
-        return user.SavedFriend;
+        return user.savedFriends;
     } catch (error) {
         console.error(error);
         throw error;
@@ -290,13 +296,16 @@ export const unsaveFriendAction = async (email: string, friendId: number) => {
             where: {
                 email: email,
             },
+            include: {
+                savedFriends: true,
+            },
         });
 
         if (!user) {
             throw new Error("No account associated with that email");
         }
 
-        const friend = await prisma.savedFriend.findFirst({
+        const friend = await prisma.savedFriends.findFirst({
             where: {
                 id: friendId,
                 userId: user.id,
@@ -307,7 +316,7 @@ export const unsaveFriendAction = async (email: string, friendId: number) => {
             throw new Error("Friend not found");
         }
 
-        await prisma.savedFriend.delete({
+        await prisma.savedFriends.delete({
             where: {
                 saved_id: friend.saved_id,
             },

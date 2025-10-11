@@ -8,7 +8,7 @@ import {
     signIn,
     signOut,
 } from "@/actions/actions";
-import { SavedFriend, User } from "@/generated/prisma";
+import { SavedFriends, User } from "@/generated/prisma";
 import { TNewUser, TSignInSchema } from "@/types/types";
 import {
     createContext,
@@ -27,7 +27,7 @@ interface UserContextType {
     login: (user: TSignInSchema) => Promise<void>;
     logout: () => void;
     getSession: () => Promise<void>;
-    saveFriend: (friend: SavedFriend) => Promise<void>;
+    saveFriend: (friend: SavedFriends) => Promise<void>;
     unsaveFriend: (friendId: number) => Promise<void>;
     getSavedFriends: (currentUser: User) => Promise<void>;
     isFriendSaved: (friendId: number) => boolean;
@@ -42,7 +42,7 @@ export function UserProvider({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
-    const [savedFriends, setSavedFriends] = useState<SavedFriend[]>([]);
+    const [savedFriends, setSavedFriends] = useState<SavedFriends[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -115,7 +115,7 @@ export function UserProvider({
     };
 
     const saveFriend = useCallback(
-        async (friend: SavedFriend) => {
+        async (friend: SavedFriends) => {
             setIsLoading(true);
             try {
                 if (!currentUser) {
