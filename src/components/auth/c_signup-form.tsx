@@ -28,6 +28,7 @@ import { TSignUpSchema } from "@/types/types";
 import { CustomSpinner } from "../custom/c_spinner";
 import { useUserContext } from "@/contexts/user-context";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function CustomSignupForm({
     ...props
@@ -44,6 +45,8 @@ export function CustomSignupForm({
         formState: { errors, isSubmitting },
     } = signUpForm;
 
+    const router = useRouter();
+
     const onSubmit = async (data: TSignUpSchema) => {
         try {
             console.log(data);
@@ -55,9 +58,11 @@ export function CustomSignupForm({
                 data.password,
                 data.confirmPassword
             );
+            router.push("/signin");
             toast.success(
                 "Signed Up Successfully! Please sign in to continue..."
             );
+            signUpForm.reset();
         } catch (error) {
             console.error(error);
             toast.error("Invalid Credentials");

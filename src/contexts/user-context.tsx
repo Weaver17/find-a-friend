@@ -1,7 +1,14 @@
 "use client";
 
-import { createUser, signIn } from "@/actions/actions";
-import { User } from "@/generated/prisma";
+import {
+    createUser,
+    fetchSession,
+    getSavedFriendsAction,
+    getUserById,
+    signIn,
+    signOut,
+} from "@/actions/actions";
+import { SavedFriend, User } from "@/generated/prisma";
 import { TNewUser, TSignInSchema } from "@/types/types";
 import {
     createContext,
@@ -18,8 +25,12 @@ interface UserContextType {
         confirmPassword: string
     ) => Promise<void>;
     login: (user: TSignInSchema) => Promise<void>;
-    // logout: () => void;
-    // getSession: () => Promise<void>;
+    logout: () => void;
+    getSession: () => Promise<void>;
+    saveFriend: (friend: SavedFriend) => Promise<void>;
+    unsaveFriend: (friendId: number) => Promise<void>;
+    getSavedFriends: (currentUser: User) => Promise<void>;
+    isFriendSaved: (friendId: number) => boolean;
     currentUser: User | null;
     isLoading: boolean;
     isLoggedIn: boolean;
@@ -31,6 +42,7 @@ export function UserProvider({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [savedFriends, setSavedFriends] = useState<SavedFriend[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -68,121 +80,122 @@ export function UserProvider({
         }
     };
 
-    // const logout = async () => {
-    //     setIsLoading(true);
-    //     try {
-    //         await signOut();
-    //         setCurrentUser(null);
-    //         setIsLoggedIn(false);
-    //     } catch (error) {
-    //         console.error(error);
-    //         throw error;
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // };
+    const logout = async () => {
+        setIsLoading(true);
+        try {
+            await signOut();
+            setCurrentUser(null);
+            setIsLoggedIn(false);
+        } catch (error) {
+            console.error(error);
+            throw error;
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-    // const getSession = async () => {
-    //     setIsLoading(true);
-    //     try {
-    //         await fetchSession().then((session) => {
-    //             if (!session) return;
-    //             getUserById(session.user.id).then((user) => {
-    //                 setCurrentUser(user);
-    //                 setIsLoggedIn(true);
-    //             });
-    //         });
-    //     } catch (error) {
-    //         console.error(error);
-    //         throw error;
-    //     } finally {
-    //         setIsLoading(false);
-    //     }
-    // };
+    const getSession = async () => {
+        setIsLoading(true);
+        try {
+            console.log("getting session from context");
+            await fetchSession().then((session) => {
+                if (!session) return;
+                getUserById(session.user.id).then((user) => {
+                    console.log("getting user by Id in context");
+                    setCurrentUser(user);
+                    setIsLoggedIn(true);
+                });
+            });
+        } catch (error) {
+            console.error(error);
+            throw error;
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-    // const editUsername = useCallback(
-    //     async (name: string) => {
-    //         setIsLoading(true);
-    //         try {
-    //             if (!currentUser) {
-    //                 throw Error("Must be logged in to edit name");
-    //             }
+    const saveFriend = useCallback(
+        async (friend: SavedFriend) => {
+            setIsLoading(true);
+            try {
+                if (!currentUser) {
+                    throw Error("Must be logged in to save friend");
+                }
+                setSavedFriends((prevSavedFriends) => [
+                    ...prevSavedFriends,
+                    friend,
+                ]);
+            } catch (error) {
+                console.error(error);
+                throw error;
+            } finally {
+                setIsLoading(false);
+            }
+        },
+        [currentUser]
+    );
 
-    //             setCurrentUser({ ...currentUser, name });
-    //         } catch (error) {
-    //             console.error(error);
-    //             throw error;
-    //         } finally {
-    //             setIsLoading(false);
-    //         }
-    //     },
-    //     [currentUser]
-    // );
+    const unsaveFriend = useCallback(
+        async (friendId: number) => {
+            setIsLoading(true);
+            try {
+                if (!currentUser) {
+                    throw Error("Must be logged in to unsave game");
+                }
+                setSavedFriends((prevSavedFriends) =>
+                    prevSavedFriends.filter((friend) => friend.id !== friendId)
+                );
+            } catch (error) {
+                console.error(error);
+                throw error;
+            } finally {
+                setIsLoading(false);
+            }
+        },
+        [currentUser]
+    );
 
-    // const saveGame = useCallback(
-    //     async (game: SavedGame) => {
-    //         setIsLoading(true);
-    //         try {
-    //             if (!currentUser) {
-    //                 throw Error("Must be logged in to save game");
-    //             }
-    //             setSavedGames((prevSavedGames) => [...prevSavedGames, game]);
-    //         } catch (error) {
-    //             console.error(error);
-    //             throw error;
-    //         } finally {
-    //             setIsLoading(false);
-    //         }
-    //     },
-    //     [currentUser]
-    // );
+    const getSavedFriends = useCallback(async (currentUser: User) => {
+        try {
+            const friends = await getSavedFriendsAction(currentUser.email);
+            setSavedFriends(friends);
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }, []);
 
-    // const unsaveGame = useCallback(
-    //     async (gameId: number) => {
-    //         setIsLoading(true);
-    //         try {
-    //             if (!currentUser) {
-    //                 throw Error("Must be logged in to unsave game");
-    //             }
-    //             setSavedGames((prevSavedGames) =>
-    //                 prevSavedGames.filter((game) => game.id !== gameId)
-    //             );
-    //         } catch (error) {
-    //             console.error(error);
-    //             throw error;
-    //         } finally {
-    //             setIsLoading(false);
-    //         }
-    //     },
-    //     [currentUser]
-    // );
-
-    // const getSavedGames = useCallback(async (currentUser: User) => {
-    //     try {
-    //         const games = await getSavedGamesAction(currentUser.email);
-    //         setSavedGames(games);
-    //     } catch (error) {
-    //         console.error(error);
-    //         throw error;
-    //     }
-    // }, []);
-
-    // const isGameSaved = useCallback(
-    //     (gameId: number) => {
-    //         return savedGames.some((game) => game.id === gameId);
-    //     },
-    //     [savedGames]
-    // );
+    const isFriendSaved = useCallback(
+        (friendId: number) => {
+            return savedFriends.some((friend) => friend.id === friendId);
+        },
+        [savedFriends]
+    );
 
     const values = useMemo(
         () => ({
             signUp,
             login,
+            logout,
+            getSession,
+            saveFriend,
+            unsaveFriend,
+            getSavedFriends,
+            isFriendSaved,
             currentUser,
             isLoading,
             isLoggedIn,
         }),
-        [signUp, currentUser, isLoading, isLoggedIn]
+        [
+            signUp,
+            saveFriend,
+            unsaveFriend,
+            getSavedFriends,
+            isFriendSaved,
+            currentUser,
+            isLoading,
+            isLoggedIn,
+        ]
     );
 
     return (

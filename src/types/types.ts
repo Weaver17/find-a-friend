@@ -3,11 +3,13 @@ import {
     signUpSchema,
     betterAtuhSignUpSchema,
 } from "@/schema/authSchema";
+import { TSavedFriendSchema } from "@/schema/friendSchema";
 import z from "zod";
 
 export type TSignInSchema = z.infer<typeof signInSchema>;
 export type TSignUpSchema = z.infer<typeof signUpSchema>;
 export type TBetterAuthSignUpSchema = z.infer<typeof betterAtuhSignUpSchema>;
+export type TSavedFriendSchema = z.infer<typeof TSavedFriendSchema>;
 
 export type TNewUser = {
     name: string;

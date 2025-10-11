@@ -75,125 +75,131 @@ model Verification {
 }
 
 model SavedFriend {
-  saved_id             String        @id @default(cuid())
-  id                   Int           @unique
-  userId               String
-  user                 User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  organizationId       String
-  url                  String
-  type                 String
-  species              String
-  breeds               Breeds?
-  colors               Colors?
-  age                  String
-  gender               String
-  size                 String
-  coat                 String
-  attributes           Attributes?
-  environment          Environment?
-  tags                 String[]
-  name                 String
-  description          String
-  organizationAnimalId String?
-  photos               Photo[]
-  primaryPhotoCropped  PrimaryPhoto?
-  videos               Video[]
-  status               String
-  statusChangedAt      DateTime
-  publishedAt          DateTime
-  distance             Float?
-  contact              Contact?
-  links                Links?
-  createdAt            DateTime      @default(now())
-  photoId              String?
+  saved_id               String        @id @default(cuid())
+  userId                 String
+  user                   User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  age                    String?
+  attributes             Attributes?
+  breeds                 Breeds?
+  coat                   String?
+  colors                 Colors?
+  contact                Contact?
+  description            String?
+  distance               Float?
+  environment            Environment?
+  gender                 String?
+  id                     Int
+  name                   String?
+  organization_animal_id String?
+  organization_id        String?
+  photos                 Photo[]
+  primary_photo_cropped  PrimaryPhoto?
+  publishedAt            String?
+  size                   String?
+  species                String?
+  status                 String?
+  status_changed_at      String?
+  tags                   String[]
+  type                   String?
+  url                    String?
+  videos                 Video[]
+  links                  Links?
 
   @@index([userId])
 }
 
 model Breeds {
-  id        String  @id
-  primary   String
+  primary   String?
   secondary String?
-  mixed     Boolean
-  unknown   Boolean
+  mixed     Boolean?
+  unknown   Boolean?
 
-  savedFriend SavedFriend @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }
 
 model Colors {
-  id          String      @id
-  primary     String
-  secondary   String?
-  tertiary    String?
-  savedFriend SavedFriend @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+  primary   String?
+  secondary String?
+  tertiary  String?
+
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }
 
 model Attributes {
-  id             String      @id
-  spayedNeutered Boolean
-  houseTrained   Boolean
+  spayedNeutered Boolean?
+  houseTrained   Boolean?
   declawed       Boolean?
-  specialNeeds   Boolean
-  shotsCurrent   Boolean
-  savedFriend    SavedFriend @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+  specialNeeds   Boolean?
+  shotsCurrent   Boolean?
+
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }
 
 model Environment {
-  id          String      @id
-  children    Boolean
-  dogs        Boolean
-  cats        Boolean
-  savedFriend SavedFriend @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+  children Boolean?
+  dogs     Boolean?
+  cats     Boolean?
+
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }
 
 model Photo {
-  id          String       @id
-  small       String
-  medium      String
-  large       String
-  full        String
-  savedFriend SavedFriend? @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+  small  String?
+  medium String?
+  large  String?
+  full   String?
+
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }
 
 model PrimaryPhoto {
-  id          String       @id
-  small       String
-  medium      String
-  large       String
-  full        String
-  savedFriend SavedFriend? @relation(fields: [id], references: [saved_id])
+  small  String?
+  medium String?
+  large  String?
+  full   String?
+
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }
 
 model Contact {
-  id          String      @id
-  email       String
-  phone       String
-  address     Address?
-  savedFriend SavedFriend @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+  id      String   @id
+  email   String?
+  phone   String?
+  address Address?
+
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }
 
 model Address {
-  id       String  @id
-  address1 String?
-  address2 String?
-  city     String
-  state    String
-  postcode String
-  country  String
-  contact  Contact @relation(fields: [id], references: [id], onDelete: Cascade)
+  address1  String?
+  address2  String?
+  city      String?
+  state     String?
+  postcode  String?
+  country   String?
+  contact   Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  contactId String  @unique
 }
 
 model Links {
-  id          String      @id
-  savedFriend SavedFriend @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 
-  self         Json
-  type         Json
-  organization Json
+  self         Json?
+  type         Json?
+  organization Json?
 }
 
 model Video {
-  id          String      @id
-  embed       String
-  SavedFriend SavedFriend @relation(fields: [id], references: [saved_id], onDelete: Cascade)
+  embed String?
+
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }

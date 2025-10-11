@@ -29,6 +29,7 @@ import { TSignInSchema } from "@/types/types";
 import { CustomSpinner } from "../custom/c_spinner";
 import { useUserContext } from "@/contexts/user-context";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function CustomSignInForm({
     className,
@@ -45,6 +46,8 @@ export function CustomSignInForm({
         formState: { errors, isSubmitting },
     } = signInForm;
 
+    const router = useRouter();
+
     const onSubmit = async (data: TSignInSchema) => {
         try {
             console.log(data);
@@ -52,6 +55,8 @@ export function CustomSignInForm({
             toast.success(
                 "Signed In Successfully! Sending you to the homepage..."
             );
+            router.push("/");
+            signInForm.reset();
         } catch (error) {
             console.error(error);
             toast.error("Invalid Credentials");

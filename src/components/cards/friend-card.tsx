@@ -1,5 +1,5 @@
 "use client";
-import { Heart } from "lucide-react";
+import { Heart, HeartIcon } from "lucide-react";
 import { CustomButton } from "../custom/c_button";
 import {
     CustomCard,
@@ -14,6 +14,10 @@ import images from "@/images/images";
 import { CustomSeparator } from "../custom/c_separator";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { useUserContext } from "@/contexts/user-context";
+import { saveFriendAction, unsaveFriendAction } from "@/actions/actions";
+import { getFriendById } from "@/lib/pet-api";
+import { useEffect } from "react";
 
 type FriendCardProps = {
     friend: Friend;
@@ -22,6 +26,14 @@ type FriendCardProps = {
 function FriendCard({ friend }: FriendCardProps) {
     const { theme } = useTheme();
 
+    const {
+        currentUser,
+        isLoggedIn,
+        unsaveFriend,
+        getSavedFriends,
+        isFriendSaved,
+    } = useUserContext();
+
     const friendTypeIcon =
         theme === "dark"
             ? getAnimalTypeIconLight(friend.type)
@@ -29,6 +41,33 @@ function FriendCard({ friend }: FriendCardProps) {
 
     const friendBackupImage =
         theme === "dark" ? images.coming_soon_dark : images.coming_soon_light;
+
+    const onSaveFriendClick = async (friend: Friend) => {
+        const isSaved = isFriendSaved(friend.id);
+
+        try {
+            if (isSaved) {
+                await unsaveFriendAction(currentUser!.email, friend.id);
+                unsaveFriend(friend.id);
+            } else {
+                const friendDetails = await getFriendById(friend.id);
+                await saveFriendAction(currentUser!.email, friendDetails);
+                await getSavedFriends(currentUser!);
+            }
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    };
+
+    const isSaved = isFriendSaved(friend.id);
+
+    useEffect(() => {
+        if (currentUser) {
+            getSavedFriends(currentUser);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentUser]);
 
     return (
         <CustomCard className="overflow-hidden p-0 gap-1 w-[240px] h-[600px]">
@@ -50,13 +89,22 @@ function FriendCard({ friend }: FriendCardProps) {
                 <div className="p-2 flex flex-col h-[200px]">
                     <div className=" flex justify-between">
                         <H3Custom className="truncate">{friend.name}</H3Custom>
-                        <CustomButton
-                            variant="ghost"
-                            size="icon-sm"
-                            className="hover:bg-secondary/25"
-                        >
-                            <Heart className="text-secondary" />
-                        </CustomButton>
+                        {isLoggedIn ? (
+                            <CustomButton
+                                variant="ghost"
+                                size="icon-sm"
+                                className="hover:bg-secondary/25"
+                                onClick={() => onSaveFriendClick(friend)}
+                            >
+                                {isSaved ? (
+                                    <HeartIcon />
+                                ) : (
+                                    <Heart className="text-secondary" />
+                                )}
+                            </CustomButton>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                     <CustomSeparator />
                     <CustomCardDescription className="p-2 text-xs h-full flex flex-col gap-2 text-foreground">

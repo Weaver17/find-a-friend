@@ -65,7 +65,7 @@ export const getLatestFriends = async () => {
 };
 
 // getting animal by ID
-export const getFriendById = async (id: string) => {
+export const getFriendById = async (id: number) => {
     try {
         const accessKey = await fetchAccessKey();
 
