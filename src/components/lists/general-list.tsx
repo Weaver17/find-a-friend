@@ -1,9 +1,8 @@
 import { Friend } from "@/types/types";
 import FriendCard from "../cards/friend-card";
-import { SavedFriends } from "@/generated/prisma";
 
 type GeneralListProps = {
-    friends: Friend[] | SavedFriends[];
+    friends: Friend[];
 };
 
 function GeneralList({ friends }: GeneralListProps) {

@@ -22,6 +22,7 @@ function Page() {
         }
 
         getOrg();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -35,8 +36,8 @@ function Page() {
                     </H1Custom>
                     <div className="flex flex-col gap-6 items-center">
                         <Image
-                            src={org?.photos[0]?.full}
-                            alt={org?.name}
+                            src={org?.photos[0]?.full ?? ""}
+                            alt={org?.name ?? "Oranization's Logo"}
                             width={300}
                             height={300}
                             className="rounded-sm shadow-sm"

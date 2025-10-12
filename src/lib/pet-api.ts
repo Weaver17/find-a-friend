@@ -43,7 +43,7 @@ const fetchAccessKey = async () => {
 };
 
 // getting latest animals
-export const getLatestFriends = async () => {
+export const getLatestFriends = async (page: number) => {
     try {
         const accessKey = await fetchAccessKey();
 
@@ -51,13 +51,13 @@ export const getLatestFriends = async () => {
             throw new Error("No access key");
         }
 
-        const data = await request(`${BASE_URL}/animals`, {
+        const data = await request(`${BASE_URL}/animals?page=${page}`, {
             headers: {
                 Authorization: `Bearer ${accessKey}`,
             },
         });
 
-        return data.animals;
+        return data;
     } catch (error) {
         console.error(error);
         throw error;

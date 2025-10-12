@@ -9,6 +9,7 @@ import GeneralList from "@/components/lists/general-list";
 import { H1Custom, H3Custom, PCustom } from "@/components/typeography/custom";
 import { useUserContext } from "@/contexts/user-context";
 import { User } from "@/generated/prisma";
+import { Friend } from "@/types/types";
 import { redirect, useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -76,7 +77,9 @@ function Page() {
                 </div>
                 <div className="w-full flex flex-col items-center gap-4">
                     <H3Custom>Saved Friends</H3Custom>
-                    <GeneralList friends={savedFriends} />
+                    <GeneralList
+                        friends={savedFriends as unknown as Friend[]}
+                    />
                 </div>
             </div>
         </div>
