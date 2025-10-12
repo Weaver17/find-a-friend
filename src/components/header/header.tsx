@@ -1,4 +1,3 @@
-import React from "react";
 import Logo from "./logo";
 import { CustomThemeBtn } from "../theme/c_theme-btn";
 import HeaderAuthBtns from "./header-auth-btns";

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import {
     Inter as font_header,
     Syne as font_sans,
-    Cascadia_Mono as font_mono,
+    Geist_Mono as font_mono,
 } from "next/font/google";
 import "./globals.css";
 import { CustomThemeProvider } from "@/components/theme/c_theme-provider";

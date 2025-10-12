@@ -3,23 +3,13 @@ import { useUserContext } from "@/contexts/user-context";
 import { CustomButton } from "../custom/c_button";
 import Link from "next/link";
 import { useEffect } from "react";
-import { fetchSession } from "@/actions/actions";
 import { User } from "lucide-react";
 
 function HeaderAuthBtns() {
-    const { isLoggedIn, logout, getSession, currentUser } = useUserContext();
-
-    async function lol() {
-        await fetchSession().then((data) => {
-            if (!data) {
-                return console.log("no session found");
-            }
-            console.log(data?.session.userAgent);
-        });
-    }
+    const { isLoggedIn, logout, currentUser, getSession } = useUserContext();
 
     const onSignOutClick = () => {
-        lol();
+        logout();
     };
 
     useEffect(() => {

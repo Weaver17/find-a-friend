@@ -70,7 +70,7 @@ function FriendCard({ friend }: FriendCardProps) {
     }, [currentUser]);
 
     return (
-        <CustomCard className="overflow-hidden p-0 gap-1 w-[240px] h-[600px]">
+        <CustomCard className="overflow-hidden p-0 gap-1 w-[240px] h-[600px] mx-auto">
             <CustomCardContent className="p-0 w-full  flex flex-col">
                 <div className="w-full h-[400px]">
                     <Link href={`/pet/${friend.id}`}>
