@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import {
     Inter as font_header,
     Syne as font_sans,
-    Cascadia_Mono as font_mono,
+    Geist_Mono as font_mono,
 } from "next/font/google";
 import "./globals.css";
 import { CustomThemeProvider } from "@/components/theme/c_theme-provider";
 import { Toaster } from "sonner";
+import { UserProvider } from "@/contexts/user-context";
 
 const fontHeader = font_header({
     variable: "--font-font-header",
@@ -47,15 +48,17 @@ export default function RootLayout({
             <body
                 className={`${fontSans.variable} ${fontMono.variable} ${fontHeader.variable} antialiased bg-[#D1F0CA] dark:bg-[#081e03]`}
             >
-                <CustomThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    {children}
-                    <Toaster />
-                </CustomThemeProvider>
+                <UserProvider>
+                    <CustomThemeProvider
+                        attribute="class"
+                        defaultTheme="system"
+                        enableSystem
+                        disableTransitionOnChange
+                    >
+                        {children}
+                        <Toaster position="top-center" />
+                    </CustomThemeProvider>
+                </UserProvider>
             </body>
         </html>
     );

@@ -1,3 +1,21 @@
+import {
+    signInSchema,
+    signUpSchema,
+    betterAtuhSignUpSchema,
+} from "@/schema/authSchema";
+import { TSavedFriendSchema } from "@/schema/friendSchema";
+import z from "zod";
+
+export type TSignInSchema = z.infer<typeof signInSchema>;
+export type TSignUpSchema = z.infer<typeof signUpSchema>;
+export type TBetterAuthSignUpSchema = z.infer<typeof betterAtuhSignUpSchema>;
+export type TSavedFriendSchema = z.infer<typeof TSavedFriendSchema>;
+
+export type TNewUser = {
+    name: string;
+    email: string;
+};
+
 export type NavbarOption = {
     label: string;
     slug: string;
@@ -5,80 +23,80 @@ export type NavbarOption = {
 };
 
 export type Friend = {
-    id: number;
-    organization_id: string;
-    url: string;
-    type: string;
-    species: string;
-    breeds: {
-        primary: string;
-        secondary: string | null;
-        mixed: boolean;
-        unknown: boolean;
+    age: string | null;
+    attributes: {
+        spayed_neutered: boolean | null;
+        house_trained: boolean | null;
+        declawed: boolean | null;
+        special_needs: boolean | null;
+        shots_current: boolean | null;
     };
+    breeds: {
+        primary: string | null;
+        secondary: string | null;
+        mixed: boolean | null;
+        unknown: boolean | null;
+    };
+    coat: string | null;
     colors: {
-        primary: string;
+        primary: string | null;
         secondary: string | null;
         tertiary: string | null;
     };
-    age: string;
-    gender: string;
-    size: string;
-    coat: string;
-    attributes: {
-        spayed_neutered: boolean;
-        house_trained: boolean;
-        declawed: boolean | null;
-        special_needs: boolean;
-        shots_current: boolean;
-    };
-    environment: {
-        children: boolean;
-        dogs: boolean;
-        cats: boolean;
-    };
-    tags: string[];
-    name: string;
-    description: string;
-    organization_animal_id: string | null;
-    photos: {
-        small: string;
-        medium: string;
-        large: string;
-        full: string;
-    }[];
-    primary_photo_cropped: {
-        small: string;
-        medium: string;
-        large: string;
-        full: string;
-    };
-    videos: unknown[];
-    status: string;
-    status_changed_at: string;
-    published_at: string;
-    distance: number | null;
     contact: {
-        email: string;
-        phone: string;
+        email: string | null;
+        phone: string | null;
         address: {
             address1: string | null;
             address2: string | null;
-            city: string;
-            state: string;
-            postcode: string;
-            country: string;
+            city: string | null;
+            state: string | null;
+            postcode: string | null;
+            country: string | null;
         };
     };
+    description: string | null;
+    distance: number | null;
+    environment: {
+        children: boolean | null;
+        dogs: boolean | null;
+        cats: boolean | null;
+    };
+    gender: string | null;
+    id: number | null;
+    name: string | null;
+    organization_animal_id: string | null;
+    organization_id: string | null;
+    photos: {
+        small: string | null;
+        medium: string | null;
+        large: string | null;
+        full: string | null;
+    }[];
+    primary_photo_cropped: {
+        small: string | null;
+        medium: string | null;
+        large: string | null;
+        full: string | null;
+    };
+    published_at: string | null;
+    size: string | null;
+    species: string | null;
+    status: string | null;
+    status_changed_at: string | null;
+    tags: string[] | null;
+    type: string | null;
+    url: string | null;
+    videos: unknown[] | null;
     _links: {
         self: {
-            href: string;
+            href: string | null;
         };
         type: {
-            href: string;
+            href: string | null;
         };
         organization: {
-            href: string;
+            href: string | null;
         };
     };
 };
@@ -99,10 +117,10 @@ export type AnimalType = {
 };
 
 export type Breed = {
-    name: string;
+    name: string | null;
     _links: {
         self: {
-            href: string;
+            href: string | null;
         };
     };
 };
@@ -116,10 +134,10 @@ export type Org = {
     address: {
         address1: string | null;
         address2: string | null;
-        city: string;
-        state: string;
-        postcode: string;
-        country: string;
+        city: string | null;
+        state: string | null;
+        postcode: string | null;
+        country: string | null;
     };
     adoption: {
         policy: string | null;
@@ -136,24 +154,24 @@ export type Org = {
         saturday: string | null;
         sunday: string | null;
     };
-    id: string;
+    id: string | null;
     mission_statement: string | null;
-    name: string;
+    name: string | null;
     phone: string | null;
     photos: {
-        full: string;
-        large: string;
-        medium: string;
-        small: string;
+        full: string | null;
+        large: string | null;
+        medium: string | null;
+        small: string | null;
     }[];
-    url: string;
+    url: string | null;
     website: string | null;
     _links: {
         animals: {
-            href: string;
+            href: string | null;
         };
         self: {
-            href: string;
+            href: string | null;
         };
     };
 };

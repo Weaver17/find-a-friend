@@ -14,9 +14,6 @@ import {
     CustomFieldDescription,
     CustomFieldSeparator,
 } from "../custom/c_field";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import {
     CustomForm,
     CustomFormDescription,
@@ -26,13 +23,12 @@ import {
 } from "../custom/c_form";
 import { useState } from "react";
 import ShowPasswordBtn from "../buttons/show-password-btn";
-
-const formSchema = z.object({
-    name: z.string().min(3),
-    email: z.email(),
-    password: z.string().min(8),
-    "confirm-password": z.string().min(8),
-});
+import { useSignUpFormContext } from "@/hooks/use-auth-context";
+import { TSignUpSchema } from "@/types/types";
+import { CustomSpinner } from "../custom/c_spinner";
+import { useUserContext } from "@/contexts/user-context";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function CustomSignupForm({
     ...props
@@ -40,14 +36,43 @@ export function CustomSignupForm({
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    const signUpForm = useForm({
-        resolver: zodResolver(formSchema),
-    });
+    const signUpForm = useSignUpFormContext();
+
+    const { signUp } = useUserContext();
+
+    const {
+        handleSubmit,
+        formState: { errors, isSubmitting },
+    } = signUpForm;
+
+    const router = useRouter();
+
+    const onSubmit = async (data: TSignUpSchema) => {
+        try {
+            console.log(data);
+            await signUp(
+                {
+                    name: data.name,
+                    email: data.email,
+                },
+                data.password,
+                data.confirmPassword
+            );
+            router.push("/signin");
+            toast.success(
+                "Signed Up Successfully! Please sign in to continue..."
+            );
+            signUpForm.reset();
+        } catch (error) {
+            console.error(error);
+            toast.error("Invalid Credentials");
+        }
+    };
 
     return (
         <CustomCard {...props} className="gap-4">
-            <CustomCardHeader>
-                <CustomCardTitle>Create an account</CustomCardTitle>
+            <CustomCardHeader className="flex-col">
+                <CustomCardTitle>Sign Up</CustomCardTitle>
                 <CustomCardDescription>
                     Enter your information below to create your account
                 </CustomCardDescription>
@@ -55,7 +80,7 @@ export function CustomSignupForm({
             <CustomFieldSeparator />
             <CustomCardContent>
                 <CustomForm {...signUpForm}>
-                    <form>
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <CustomFieldGroup>
                             <CustomFormField
                                 control={signUpForm.control}
@@ -131,14 +156,14 @@ export function CustomSignupForm({
 
                             <CustomFormField
                                 control={signUpForm.control}
-                                name="confirm-password"
+                                name="confirmPassword"
                                 render={({ field }) => (
                                     <CustomFormItem className="relative">
-                                        <CustomFormLabel htmlFor="confirm-password">
+                                        <CustomFormLabel htmlFor="confirmPassword">
                                             Confirm Password
                                         </CustomFormLabel>
                                         <CustomInput
-                                            id="confirm-password"
+                                            id="confirmPassword"
                                             type={
                                                 showConfirmPassword
                                                     ? "text"
@@ -161,7 +186,9 @@ export function CustomSignupForm({
                             />
 
                             <CustomFieldSeparator />
-                            <CustomButton>Create Account</CustomButton>
+                            <CustomButton>
+                                {isSubmitting ? <CustomSpinner /> : "Sign Up"}
+                            </CustomButton>
 
                             <CustomFieldDescription className="px-6 text-center">
                                 Already have an account?{" "}
