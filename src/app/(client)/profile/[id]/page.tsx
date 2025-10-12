@@ -66,19 +66,15 @@ function Page() {
                     {isLoading ? <SmallSpinner /> : profileUser?.name}
                 </H1Custom>
             </div>
-            <div className="flex flex-col gap-12 py-4 lg:px-8 lg:flex-row">
-                <div className="w-full flex flex-col gap-4 items-center min-h-[300px] lg:w-1/4">
-                    <PCustom>{profileUser?.email}</PCustom>
+            <div className="flex flex-col gap-8 py-4 lg:px-8">
+                <div className="w-full flex flex-col gap-4 items-center">
                     {profileUser?.emailVerified === false ? (
                         <CustomButton>Verify Email</CustomButton>
                     ) : (
-                        <></>
+                        <PCustom>{profileUser?.email}</PCustom>
                     )}
-                    <CustomButton className="mt-auto" variant="outline">
-                        Sign Out
-                    </CustomButton>
                 </div>
-                <div className="w-full flex flex-col gap-4 lg:w-3/4">
+                <div className="w-full flex flex-col items-center gap-4">
                     <H3Custom>Saved Friends</H3Custom>
                     <GeneralList friends={savedFriends} />
                 </div>
