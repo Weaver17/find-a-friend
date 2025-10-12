@@ -282,3 +282,28 @@ export const getOrgById = async (id: string) => {
         throw error;
     }
 };
+
+// getting animals by single org
+export const getAnimalsByOrg = async (orgId: string, page: number) => {
+    try {
+        const accessKey = await fetchAccessKey();
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const data = await request(
+            `${BASE_URL}/animals?organization=${orgId}&page=${page}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessKey}`,
+                },
+            }
+        );
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
