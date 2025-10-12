@@ -36,21 +36,21 @@ function FriendCard({ friend }: FriendCardProps) {
 
     const friendTypeIcon =
         theme === "dark"
-            ? getAnimalTypeIconLight(friend.type)
-            : getAnimalTypeIconDark(friend.type);
+            ? getAnimalTypeIconLight(friend.type!)
+            : getAnimalTypeIconDark(friend.type!);
 
     const friendBackupImage =
         theme === "dark" ? images.coming_soon_dark : images.coming_soon_light;
 
     const onSaveFriendClick = async (friend: Friend) => {
-        const isSaved = isFriendSaved(friend.id);
+        const isSaved = isFriendSaved(friend.id!);
 
         try {
             if (isSaved) {
-                await unsaveFriendAction(currentUser!.email, friend.id);
-                unsaveFriend(friend.id);
+                await unsaveFriendAction(currentUser!.email, friend.id!);
+                unsaveFriend(friend.id!);
             } else {
-                const friendDetails = await getFriendById(friend.id);
+                const friendDetails = await getFriendById(friend.id!);
                 await saveFriendAction(currentUser!.email, friendDetails);
                 await getSavedFriends(currentUser!);
             }
@@ -60,7 +60,7 @@ function FriendCard({ friend }: FriendCardProps) {
         }
     };
 
-    const isSaved = isFriendSaved(friend.id);
+    const isSaved = isFriendSaved(friend.id!);
 
     useEffect(() => {
         if (currentUser) {
@@ -79,7 +79,7 @@ function FriendCard({ friend }: FriendCardProps) {
                                 friend?.primary_photo_cropped?.large ??
                                 friendBackupImage
                             }
-                            alt={friend.name}
+                            alt={friend?.name ?? "Image Coming Soon"}
                             height={400}
                             width={240}
                             className="w-[240px] h-[400px] object-cover"
@@ -97,7 +97,7 @@ function FriendCard({ friend }: FriendCardProps) {
                                 onClick={() => onSaveFriendClick(friend)}
                             >
                                 {isSaved ? (
-                                    <HeartIcon />
+                                    <HeartIcon className="fill-secondary text-secondary" />
                                 ) : (
                                     <Heart className="text-secondary" />
                                 )}
@@ -108,10 +108,10 @@ function FriendCard({ friend }: FriendCardProps) {
                     </div>
                     <CustomSeparator />
                     <CustomCardDescription className="p-2 text-xs h-full flex flex-col gap-2 text-foreground">
-                        {friend.breeds.secondary !== null ? (
+                        {friend?.breeds?.secondary !== null ? (
                             <PCustom className="text-center">
-                                {friend.breeds.primary} |{" "}
-                                {friend.breeds.secondary}
+                                {friend?.breeds?.primary} |{" "}
+                                {friend?.breeds?.secondary}
                             </PCustom>
                         ) : (
                             <PCustom className="text-center">
@@ -132,7 +132,7 @@ function FriendCard({ friend }: FriendCardProps) {
                         <div className="w-full mt-auto flex justify-between items-end">
                             <Image
                                 src={friendTypeIcon}
-                                alt={friend.type}
+                                alt={friend.type ?? "Friend Type Icon"}
                                 width={40}
                                 height={40}
                             />

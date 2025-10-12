@@ -5,6 +5,7 @@ import {
     LoadingOverlay,
     SmallSpinner,
 } from "@/components/custom/c_loading-spinner";
+import GeneralList from "@/components/lists/general-list";
 import { H1Custom, H3Custom, PCustom } from "@/components/typeography/custom";
 import { useUserContext } from "@/contexts/user-context";
 import { User } from "@/generated/prisma";
@@ -15,9 +16,20 @@ function Page() {
     const [profileUser, setProfileUser] = useState<User | null>(null);
     const params = useParams<{ id: string }>();
 
-    const { currentUser, isLoading } = useUserContext();
+    const {
+        currentUser,
+        isLoading,
+        getSavedFriends,
+        savedFriends,
+        getSession,
+    } = useUserContext();
 
     const router = useRouter();
+
+    useEffect(() => {
+        getSession();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         async function getUser() {
@@ -32,6 +44,12 @@ function Page() {
         getUser();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        if (profileUser) {
+            getSavedFriends(profileUser);
+        }
+    }, [profileUser, getSavedFriends]);
 
     if (!currentUser) {
         return redirect("/signin");
@@ -62,6 +80,7 @@ function Page() {
                 </div>
                 <div className="w-full flex flex-col gap-4 lg:w-3/4">
                     <H3Custom>Saved Friends</H3Custom>
+                    <GeneralList friends={savedFriends} />
                 </div>
             </div>
         </div>

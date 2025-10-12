@@ -160,7 +160,7 @@ export async function saveFriendAction(
             _links,
         } = data;
 
-        await prisma.savedFriends.create({
+        await prisma.savedFriend.create({
             data: {
                 userId: user.id,
                 age: data.age,
@@ -275,7 +275,23 @@ export const getSavedFriendsAction = async (email: string) => {
                 email: email,
             },
             include: {
-                savedFriends: true,
+                savedFriends: {
+                    include: {
+                        breeds: true,
+                        colors: true,
+                        attributes: true,
+                        environment: true,
+                        photos: true,
+                        primary_photo_cropped: true,
+                        contact: {
+                            include: {
+                                address: true,
+                            },
+                        },
+                        videos: true,
+                        links: true,
+                    },
+                },
             },
         });
 
@@ -305,7 +321,7 @@ export const unsaveFriendAction = async (email: string, friendId: number) => {
             throw new Error("No account associated with that email");
         }
 
-        const friend = await prisma.savedFriends.findFirst({
+        const friend = await prisma.savedFriend.findFirst({
             where: {
                 id: friendId,
                 userId: user.id,
@@ -316,7 +332,7 @@ export const unsaveFriendAction = async (email: string, friendId: number) => {
             throw new Error("Friend not found");
         }
 
-        await prisma.savedFriends.delete({
+        await prisma.savedFriend.delete({
             where: {
                 saved_id: friend.saved_id,
             },

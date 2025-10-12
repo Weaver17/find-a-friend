@@ -8,7 +8,7 @@ import {
     signIn,
     signOut,
 } from "@/actions/actions";
-import { SavedFriends, User } from "@/generated/prisma";
+import { SavedFriend, User } from "@/generated/prisma";
 import { TNewUser, TSignInSchema } from "@/types/types";
 import {
     createContext,
@@ -27,13 +27,14 @@ interface UserContextType {
     login: (user: TSignInSchema) => Promise<void>;
     logout: () => void;
     getSession: () => Promise<void>;
-    saveFriend: (friend: SavedFriends) => Promise<void>;
+    saveFriend: (friend: SavedFriend) => Promise<void>;
     unsaveFriend: (friendId: number) => Promise<void>;
     getSavedFriends: (currentUser: User) => Promise<void>;
     isFriendSaved: (friendId: number) => boolean;
     currentUser: User | null;
     isLoading: boolean;
     isLoggedIn: boolean;
+    savedFriends: SavedFriend[];
 }
 
 export const userContext = createContext<UserContextType | null>(null);
@@ -42,7 +43,7 @@ export function UserProvider({
     children,
 }: Readonly<{ children: React.ReactNode }>) {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
-    const [savedFriends, setSavedFriends] = useState<SavedFriends[]>([]);
+    const [savedFriends, setSavedFriends] = useState<SavedFriend[]>([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -115,7 +116,7 @@ export function UserProvider({
     };
 
     const saveFriend = useCallback(
-        async (friend: SavedFriends) => {
+        async (friend: SavedFriend) => {
             setIsLoading(true);
             try {
                 if (!currentUser) {
@@ -185,6 +186,7 @@ export function UserProvider({
             currentUser,
             isLoading,
             isLoggedIn,
+            savedFriends,
         }),
         [
             signUp,
@@ -195,6 +197,7 @@ export function UserProvider({
             currentUser,
             isLoading,
             isLoggedIn,
+            savedFriends,
         ]
     );
 

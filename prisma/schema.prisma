@@ -15,16 +15,16 @@ datasource db {
 }
 
 model User {
-  id            String         @id @default(cuid())
-  email         String         @unique
+  id            String        @id @default(cuid())
+  email         String        @unique
   name          String
-  emailVerified Boolean        @default(false)
+  emailVerified Boolean       @default(false)
   image         String?
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @default(now()) @updatedAt
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now()) @updatedAt
   sessions      Session[]
   accounts      Account[]
-  savedFriends  SavedFriends[]
+  savedFriends  SavedFriend[]
 
   @@map("user")
 }
@@ -74,7 +74,7 @@ model Verification {
   @@map("verification")
 }
 
-model SavedFriends {
+model SavedFriend {
   saved_id               String        @id @default(cuid())
   userId                 String
   user                   User          @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -109,71 +109,71 @@ model SavedFriends {
 }
 
 model Breeds {
-  id            String       @id @default(cuid())
+  id            String      @id @default(cuid())
   primary       String?
   secondary     String?
   mixed         Boolean?
   unknown       Boolean?
-  savedFriend   SavedFriends @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
-  savedFriendId String       @unique
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }
 
 model Colors {
-  id            String       @id @default(cuid())
+  id            String      @id @default(cuid())
   primary       String?
   secondary     String?
   tertiary      String?
-  savedFriend   SavedFriends @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
-  savedFriendId String       @unique
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }
 
 model Attributes {
-  id             String       @id @default(cuid())
+  id             String      @id @default(cuid())
   spayedNeutered Boolean?
   houseTrained   Boolean?
   declawed       Boolean?
   specialNeeds   Boolean?
   shotsCurrent   Boolean?
-  savedFriend    SavedFriends @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
-  savedFriendId  String       @unique
+  savedFriend    SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId  String      @unique
 }
 
 model Environment {
-  id            String       @id @default(cuid())
+  id            String      @id @default(cuid())
   children      Boolean?
   dogs          Boolean?
   cats          Boolean?
-  savedFriend   SavedFriends @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
-  savedFriendId String       @unique
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }
 
 model Photo {
-  id            String       @id @default(cuid())
+  id            String      @id @default(cuid())
   small         String?
   medium        String?
   large         String?
   full          String?
-  savedFriend   SavedFriends @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
   savedFriendId String
 }
 
 model PrimaryPhoto {
-  id            String       @id @default(cuid())
+  id            String      @id @default(cuid())
   small         String?
   medium        String?
   large         String?
   full          String?
-  savedFriend   SavedFriends @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
-  savedFriendId String       @unique
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }
 
 model Contact {
-  id            String       @id @default(cuid())
+  id            String      @id @default(cuid())
   email         String?
   phone         String?
   address       Address?
-  savedFriend   SavedFriends @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
-  savedFriendId String       @unique
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }
 
 model Address {
@@ -189,17 +189,17 @@ model Address {
 }
 
 model Links {
-  id            String       @id @default(cuid())
+  id            String      @id @default(cuid())
   self          Json?
   type          Json?
   organization  Json?
-  savedFriend   SavedFriends @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
-  savedFriendId String       @unique
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }
 
 model Video {
-  id            String       @id @default(cuid())
+  id            String      @id @default(cuid())
   embed         String?
-  savedFriend   SavedFriends @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
-  savedFriendId String       @unique
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
 }
