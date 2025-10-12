@@ -22,13 +22,15 @@ function NameImage({
         <div className="p-4 flex flex-col gap-4 mx-auto border-b md:mx-0 md:flex-row ">
             {isMobile ? (
                 <div className="flex flex-col gap-4">
-                    <H1Custom className="text-center">{friend?.name}</H1Custom>
+                    <H1Custom className="text-center font-header">
+                        {friend?.name}
+                    </H1Custom>
                     <Image
                         src={
                             friend?.primary_photo_cropped?.large ??
                             friendBackupImage
                         }
-                        alt={friend?.name}
+                        alt={friend?.name ?? "Image Coming Soon"}
                         width={400}
                         height={400}
                         className="mx-auto max-h-[400px] rounded-sm shadow-sm"
@@ -40,7 +42,7 @@ function NameImage({
                         friend?.primary_photo_cropped?.large ??
                         friendBackupImage
                     }
-                    alt={friend?.name}
+                    alt={friend?.name ?? "Image Coming Soon"}
                     width={400}
                     height={400}
                     className="max-h-[400px] rounded-sm shadow-sm"
@@ -52,7 +54,9 @@ function NameImage({
                     <div></div>
                 ) : (
                     <div className="flex justify-between">
-                        <H1Custom>{friend?.name}</H1Custom>
+                        <H1Custom className="font-header">
+                            {friend?.name}
+                        </H1Custom>
                         <CustomButton
                             variant="ghost"
                             size="icon-lg"
@@ -98,7 +102,7 @@ function NameImage({
                     <div className="mt-auto flex justify-between items-center">
                         <Image
                             src={friendTypeIcon}
-                            alt={friend?.type}
+                            alt={friend?.type ?? "Type Not Found"}
                             width={25}
                             height={25}
                         />
@@ -113,7 +117,7 @@ function NameImage({
                 ) : (
                     <Image
                         src={friendTypeIcon}
-                        alt={friend?.type}
+                        alt={friend?.type ?? "Type Not Found"}
                         width={40}
                         height={40}
                         className="mt-auto"

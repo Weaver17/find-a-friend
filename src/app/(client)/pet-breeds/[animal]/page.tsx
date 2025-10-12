@@ -41,7 +41,7 @@ function Page() {
     return (
         <div className="client-page">
             <div className="flex flex-col items-center justify-center gap-4">
-                <H1Custom className="">{type?.name}</H1Custom>
+                <H1Custom className="font-header">{type?.name}</H1Custom>
 
                 {scientificName === "N/A" ? (
                     <></>
@@ -96,7 +96,7 @@ function Page() {
                 ) : (
                     "abcdefghijklmnopqrstuvwxyz".split("").map((letter) => {
                         const breedsForLetter = breeds.filter((breed) =>
-                            breed.name.toLowerCase().startsWith(letter)
+                            breed.name!.toLowerCase().startsWith(letter)
                         );
                         if (breedsForLetter.length === 0) {
                             return null;
@@ -113,7 +113,7 @@ function Page() {
                                 <ul className="flex flex-wrap justify-center gap-4 max-w-[1100px]">
                                     {breedsForLetter.map((breed) => {
                                         const breedNameSlug = slugify(
-                                            breed.name
+                                            breed.name!
                                         );
                                         return (
                                             <li key={breed.name}>

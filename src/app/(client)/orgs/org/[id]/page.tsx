@@ -31,7 +31,7 @@ function Page() {
                 <LoadingOverlay />
             ) : (
                 <div className="mt-6 flex flex-col gap-4">
-                    <H1Custom className="text-center border-b pb-2">
+                    <H1Custom className="text-center font-header border-b pb-2">
                         {org.name}
                     </H1Custom>
                     <div className="flex flex-col gap-6 items-center">

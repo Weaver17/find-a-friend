@@ -25,7 +25,7 @@ function AboutPet({ friend }: AboutPetProps) {
                         </div>
                     ) : (
                         <div className="flex gap-2 items-center">
-                            <XIcon />
+                            <XIcon className="size-4 sm:size-6 md:size-8" />
                             <PCustom>I have not been house trained</PCustom>
                         </div>
                     )}
@@ -36,7 +36,7 @@ function AboutPet({ friend }: AboutPetProps) {
                         </div>
                     ) : (
                         <div className="flex gap-2 items-center">
-                            <XIcon />
+                            <XIcon className="size-4 sm:size-6 md:size-8" />
                             <PCustom>My shots are not up to date</PCustom>
                         </div>
                     )}
@@ -47,7 +47,7 @@ function AboutPet({ friend }: AboutPetProps) {
                         </div>
                     ) : (
                         <div className="flex gap-2 items-center">
-                            <XIcon />
+                            <XIcon className="size-4 sm:size-6 md:size-8" />
                             <PCustom>I have not been spayed/neutered</PCustom>
                         </div>
                     )}

@@ -42,7 +42,7 @@ function Page() {
     return (
         <div className="client-page">
             <div className="mt-4">
-                <H1Custom className="text-center">
+                <H1Custom className="text-center font-header">
                     Shelters and Organizations
                 </H1Custom>
             </div>

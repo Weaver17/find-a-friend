@@ -39,7 +39,9 @@ function Page() {
                     <SmallSpinner />
                 ) : (
                     <>
-                        <H1Custom className="">{type?.name}</H1Custom>
+                        <H1Custom className="font-header">
+                            {type?.name}
+                        </H1Custom>
 
                         {scientificName === "N/A" ? (
                             <></>

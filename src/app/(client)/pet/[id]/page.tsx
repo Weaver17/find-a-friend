@@ -23,11 +23,13 @@ function Page() {
 
     const params = useParams<{ id: string }>();
 
+    const petId = parseInt(params.id);
+
     const { theme } = useTheme();
 
     useEffect(() => {
         async function getFriend() {
-            await getFriendById(params.id).then((data) => {
+            await getFriendById(petId).then((data) => {
                 console.log(data);
                 setFriend(data);
             });
@@ -42,8 +44,8 @@ function Page() {
 
     const friendTypeIcon =
         theme === "dark"
-            ? getAnimalTypeIconLight(friend.type)
-            : getAnimalTypeIconDark(friend.type);
+            ? getAnimalTypeIconLight(friend.type!)
+            : getAnimalTypeIconDark(friend.type!);
 
     const friendBackupImage =
         theme === "dark" ? images.coming_soon_dark : images.coming_soon_light;
