@@ -5,7 +5,7 @@ import Navbar from "./navbar";
 
 function Header() {
     return (
-        <header className="relative flex font-header max-w-[1380px] mb-2 w-full mx-auto justify-between sm:items-center sm:gap-6 sm:py-4 lg:mb-10">
+        <header className="relative p-4 flex font-header max-w-[1380px] mb-2 w-full mx-auto justify-between sm:items-center sm:gap-6 lg:mb-10">
             <div className="flex pt-24 gap-2 items-center sm:pt-0">
                 <CustomThemeBtn />
             </div>
