@@ -5,7 +5,7 @@ import {
     LoadingOverlay,
     SmallSpinner,
 } from "@/components/custom/c_loading-spinner";
-import GeneralList from "@/components/lists/general-list";
+import SavedList from "@/components/lists/saved-list";
 import { H1Custom, H3Custom, PCustom } from "@/components/typeography/custom";
 import { useUserContext } from "@/contexts/user-context";
 import { User } from "@/generated/prisma";
@@ -15,6 +15,7 @@ import React, { useEffect, useState } from "react";
 
 function Page() {
     const [profileUser, setProfileUser] = useState<User | null>(null);
+
     const params = useParams<{ id: string }>();
 
     const {
@@ -77,9 +78,7 @@ function Page() {
                 </div>
                 <div className="w-full flex flex-col items-center gap-4">
                     <H3Custom>Saved Friends</H3Custom>
-                    <GeneralList
-                        friends={savedFriends as unknown as Friend[]}
-                    />
+                    <SavedList friends={savedFriends as unknown as Friend[]} />
                 </div>
             </div>
         </div>
