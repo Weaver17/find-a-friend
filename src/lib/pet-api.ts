@@ -111,7 +111,8 @@ export const getSingleAnimalType = async (animalType: string) => {
 // getting animals by type an gender
 export const getAnimalsByTypeAndGender = async (
     animalType: string,
-    gender: string
+    gender: string,
+    page: number
 ) => {
     try {
         const accessKey = await fetchAccessKey();
@@ -121,7 +122,7 @@ export const getAnimalsByTypeAndGender = async (
         }
 
         const data = await request(
-            `${BASE_URL}/animals?type=${animalType}&gender=${gender}`,
+            `${BASE_URL}/animals?type=${animalType}&gender=${gender}&page=${page}`,
             {
                 headers: {
                     Authorization: `Bearer ${accessKey}`,
@@ -139,7 +140,8 @@ export const getAnimalsByTypeAndGender = async (
 // getting animals by type and coat
 export const getAnimalsByTypeAndCoat = async (
     animalType: string,
-    coat: string
+    coat: string,
+    page: number
 ) => {
     try {
         const accessKey = await fetchAccessKey();
@@ -149,7 +151,7 @@ export const getAnimalsByTypeAndCoat = async (
         }
 
         const data = await request(
-            `${BASE_URL}/animals?type=${animalType}&coat=${coat}`,
+            `${BASE_URL}/animals?type=${animalType}&coat=${coat}&page=${page}`,
             {
                 headers: {
                     Authorization: `Bearer ${accessKey}`,
@@ -167,7 +169,8 @@ export const getAnimalsByTypeAndCoat = async (
 // getting animals by type and color
 export const getAnimalsByTypeAndColor = async (
     animalType: string,
-    color: string
+    color: string,
+    page: number
 ) => {
     try {
         const accessKey = await fetchAccessKey();
@@ -177,7 +180,7 @@ export const getAnimalsByTypeAndColor = async (
         }
 
         const data = await request(
-            `${BASE_URL}/animals?type=${animalType}&color=${color}`,
+            `${BASE_URL}/animals?type=${animalType}&color=${color}&page=${page}`,
             {
                 headers: {
                     Authorization: `Bearer ${accessKey}`,
