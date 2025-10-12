@@ -1,9 +1,6 @@
 "use client";
 import { CustomButton } from "@/components/custom/c_button";
-import {
-    LoadingSpinner,
-    SmallSpinner,
-} from "@/components/custom/c_loading-spinner";
+import { SmallSpinner } from "@/components/custom/c_loading-spinner";
 import { H1Custom, H2Custom, H3Custom } from "@/components/typeography/custom";
 import { getSingleAnimalType } from "@/lib/pet-api";
 import { getScientificName, slugify } from "@/lib/utils";
@@ -56,26 +53,114 @@ function Page() {
                 )}
             </div>
             <div className="flex flex-col items-center justify-center gap-4">
-                <H2Custom>Genders</H2Custom>
-                {type === null ? (
-                    <SmallSpinner />
-                ) : (
-                    <ul className="flex flex-col items-center gap-2 sm:gap-8 sm:flex-row">
-                        {type?.genders.map((gender) => (
-                            <li key={gender}>
-                                <CustomButton size="lg" variant="link" asChild>
-                                    <Link
-                                        href={`/pet-types/${
-                                            params.animal
-                                        }/gender/${gender.toLowerCase()}`}
+                <div className="flex flex-col items-center justify-center gap-4">
+                    <H2Custom>Genders</H2Custom>
+                    {type === null ? (
+                        <SmallSpinner />
+                    ) : (
+                        <ul className="flex flex-col items-center gap-2 sm:gap-8 sm:flex-row">
+                            {type?.genders.map((gender) => (
+                                <li key={gender}>
+                                    <CustomButton
+                                        size="lg"
+                                        variant="link"
+                                        asChild
                                     >
-                                        {gender}
-                                    </Link>
-                                </CustomButton>
-                            </li>
-                        ))}
+                                        <Link
+                                            href={`/pet-types/${
+                                                params.animal
+                                            }/gender/${gender.toLowerCase()}`}
+                                        >
+                                            {gender}
+                                        </Link>
+                                    </CustomButton>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+                <div className="flex flex-col items-center justify-center gap-4">
+                    <H3Custom>Sizes</H3Custom>
+                    <ul className="flex flex-col items-center gap-2 sm:gap-8 sm:flex-row">
+                        <li key="1">
+                            <CustomButton size="lg" variant="link" asChild>
+                                <Link
+                                    href={`/pet-types/${params.animal}/size/small`}
+                                >
+                                    Small
+                                </Link>
+                            </CustomButton>
+                        </li>
+                        <li key="2">
+                            <CustomButton size="lg" variant="link" asChild>
+                                <Link
+                                    href={`/pet-types/${params.animal}/size/medium`}
+                                >
+                                    Medium
+                                </Link>
+                            </CustomButton>
+                        </li>
+                        <li key="3">
+                            <CustomButton size="lg" variant="link" asChild>
+                                <Link
+                                    href={`/pet-types/${params.animal}/size/large`}
+                                >
+                                    Large
+                                </Link>
+                            </CustomButton>
+                        </li>
+                        <li key="4">
+                            <CustomButton size="lg" variant="link" asChild>
+                                <Link
+                                    href={`/pet-types/${params.animal}/size/xlarge`}
+                                >
+                                    X-Large
+                                </Link>
+                            </CustomButton>
+                        </li>
                     </ul>
-                )}
+                </div>
+                <div className="flex flex-col items-center justify-center gap-4">
+                    <H3Custom>Ages</H3Custom>
+                    <ul className="flex flex-col items-center gap-2 sm:gap-8 sm:flex-row">
+                        <li key="1">
+                            <CustomButton size="lg" variant="link" asChild>
+                                <Link
+                                    href={`/pet-types/${params.animal}/age/baby`}
+                                >
+                                    Baby
+                                </Link>
+                            </CustomButton>
+                        </li>
+                        <li key="2">
+                            <CustomButton size="lg" variant="link" asChild>
+                                <Link
+                                    href={`/pet-types/${params.animal}/age/young`}
+                                >
+                                    Young
+                                </Link>
+                            </CustomButton>
+                        </li>
+                        <li key="3">
+                            <CustomButton size="lg" variant="link" asChild>
+                                <Link
+                                    href={`/pet-types/${params.animal}/age/adult`}
+                                >
+                                    Adult
+                                </Link>
+                            </CustomButton>
+                        </li>
+                        <li key="4">
+                            <CustomButton size="lg" variant="link" asChild>
+                                <Link
+                                    href={`/pet-types/${params.animal}/age/senior`}
+                                >
+                                    Senior
+                                </Link>
+                            </CustomButton>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div className=" flex flex-col gap-8 mx-auto w-full lg:justify-evenly lg:flex-row">
                 <div className="flex flex-col items-center gap-4">

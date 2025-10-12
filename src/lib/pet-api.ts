@@ -195,6 +195,64 @@ export const getAnimalsByTypeAndColor = async (
     }
 };
 
+// getting animals by type and age
+export const getAnimalsByTypeAndAge = async (
+    animalType: string,
+    age: string,
+    page: number
+) => {
+    try {
+        const accessKey = await fetchAccessKey();
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const data = await request(
+            `${BASE_URL}/animals?type=${animalType}&age=${age}&page=${page}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessKey}`,
+                },
+            }
+        );
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+// getting animals by type and size
+export const getAnimalsByTypeAndSize = async (
+    animalType: string,
+    size: string,
+    page: number
+) => {
+    try {
+        const accessKey = await fetchAccessKey();
+
+        if (!accessKey) {
+            throw new Error("No access key");
+        }
+
+        const data = await request(
+            `${BASE_URL}/animals?type=${animalType}&size=${size}&page=${page}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessKey}`,
+                },
+            }
+        );
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
 // getting specific animal breeds
 export const getSingleAnimalBreeds = async (animalType: string) => {
     try {
