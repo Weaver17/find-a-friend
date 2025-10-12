@@ -14,7 +14,7 @@ import Image from "next/image";
 
 function Navbar() {
     return (
-        <nav className="bg-secondary rounded-sm border md:px-6 md:py-2 dark:text-background">
+        <nav className="bg-secondary rounded-sm border md:px-4 md:py-0 lg:px-6 lg:py-2 dark:text-background">
             <CustomNavigationMenu viewport={false} className="z-50">
                 <CustomNavigationMenuList className="gap-2! md:gap-6!">
                     <CustomNavigationMenuItem>

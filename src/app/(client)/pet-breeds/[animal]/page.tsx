@@ -61,7 +61,7 @@ function Page() {
                 <div className="text-sm text-muted-dark">
                     <ul
                         id="alphabet-list"
-                        className="flex flex-no-wrap justify-center gap-4 max-w-[1100px]"
+                        className="grid grid-cols-8 justify-center gap-4 max-w-[1100px] md:grid-cols-13 lg:grid-cols-26"
                     >
                         {ALPHABET.map((letter) => (
                             <li key={letter}>
@@ -81,7 +81,7 @@ function Page() {
                                 >
                                     <CustomButton
                                         variant="link"
-                                        className="p-0"
+                                        className="p-0 text-xs md:text-base"
                                     >
                                         {letter}
                                     </CustomButton>
@@ -117,7 +117,7 @@ function Page() {
                                         );
                                         return (
                                             <li key={breed.name}>
-                                                <CustomButton size="lg" asChild>
+                                                <CustomButton asChild>
                                                     <Link
                                                         href={`/pet-breeds/${params.animal}/${breedNameSlug}`}
                                                     >

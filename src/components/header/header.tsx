@@ -5,11 +5,11 @@ import Navbar from "./navbar";
 
 function Header() {
     return (
-        <header className="relative p-4 flex font-header max-w-[1380px] mb-2 w-full mx-auto justify-between sm:items-center sm:gap-6 lg:mb-10">
+        <header className="relative p-4 flex font-header max-w-[1380px] mb-0 w-full mx-auto justify-between sm:items-center sm:gap-6 md:mb-4 lg:mb-10">
             <div className="flex pt-24 gap-2 items-center sm:pt-0">
                 <CustomThemeBtn />
             </div>
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col gap-1 justify-center items-center md:gap-2 lg:gap-10">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 flex flex-col gap-1 justify-center items-center md:gap-4 lg:gap-8">
                 <Logo />
                 <Navbar />
             </div>
