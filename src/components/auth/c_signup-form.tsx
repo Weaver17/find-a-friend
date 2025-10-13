@@ -20,6 +20,7 @@ import {
     CustomFormField,
     CustomFormItem,
     CustomFormLabel,
+    CustomFormMessage,
 } from "../custom/c_form";
 import { useState } from "react";
 import ShowPasswordBtn from "../buttons/show-password-btn";
@@ -97,6 +98,11 @@ export function CustomSignupForm({
                                             required
                                             {...field}
                                         />
+                                        {errors && (
+                                            <CustomFormMessage>
+                                                {errors.name?.message}
+                                            </CustomFormMessage>
+                                        )}
                                     </CustomFormItem>
                                 )}
                             />
@@ -121,6 +127,11 @@ export function CustomSignupForm({
                                             We will not share your email with
                                             anyone else.
                                         </CustomFormDescription>
+                                        {errors && (
+                                            <CustomFormMessage>
+                                                {errors.email?.message}
+                                            </CustomFormMessage>
+                                        )}
                                     </CustomFormItem>
                                 )}
                             />
@@ -150,6 +161,11 @@ export function CustomSignupForm({
                                         <CustomFormDescription>
                                             Must be at least 8 characters long.
                                         </CustomFormDescription>
+                                        {errors && (
+                                            <CustomFormMessage>
+                                                {errors.password?.message}
+                                            </CustomFormMessage>
+                                        )}
                                     </CustomFormItem>
                                 )}
                             />
@@ -181,6 +197,14 @@ export function CustomSignupForm({
                                         <CustomFormDescription>
                                             Please confirm your password.
                                         </CustomFormDescription>
+                                        {errors && (
+                                            <CustomFormMessage>
+                                                {
+                                                    errors.confirmPassword
+                                                        ?.message
+                                                }
+                                            </CustomFormMessage>
+                                        )}
                                     </CustomFormItem>
                                 )}
                             />

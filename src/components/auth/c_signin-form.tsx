@@ -21,6 +21,7 @@ import {
     CustomFormField,
     CustomFormItem,
     CustomFormLabel,
+    CustomFormMessage,
 } from "../custom/c_form";
 import { useState } from "react";
 import ShowPasswordBtn from "../buttons/show-password-btn";
@@ -93,6 +94,11 @@ export function CustomSignInForm({
                                                 required
                                                 {...field}
                                             />
+                                            {errors && (
+                                                <CustomFormMessage>
+                                                    {errors.email?.message}
+                                                </CustomFormMessage>
+                                            )}
                                         </CustomFormItem>
                                     )}
                                 />
@@ -130,6 +136,11 @@ export function CustomSignInForm({
                                                     Forgot your password?
                                                 </Link>
                                             </CustomFormDescription>
+                                            {errors && (
+                                                <CustomFormMessage>
+                                                    {errors.password?.message}
+                                                </CustomFormMessage>
+                                            )}
                                         </CustomFormItem>
                                     )}
                                 />

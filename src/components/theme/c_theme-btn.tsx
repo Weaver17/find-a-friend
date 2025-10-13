@@ -4,12 +4,6 @@ import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { CustomButton } from "../custom/c_button";
-import {
-    CustomDropdownMenu,
-    CustomDropdownMenuTrigger,
-    CustomDropdownMenuContent,
-    CustomDropdownMenuItem,
-} from "../custom/c_dropdown-menu";
 
 export function CustomThemeBtn() {
     const { setTheme, theme } = useTheme();
