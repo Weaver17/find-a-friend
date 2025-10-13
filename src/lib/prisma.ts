@@ -2,7 +2,7 @@
 
 import { PrismaClient } from "@/generated/prisma";
 
-const connectionString = process.env.DATABASE_URL;
+const connectionString = process.env.FAF_DATABASE_URL;
 
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
