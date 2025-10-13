@@ -30,7 +30,7 @@ function Page() {
 
         getFriends();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [page]);
 
     const typeTitle = deslugify(params.animal);
 

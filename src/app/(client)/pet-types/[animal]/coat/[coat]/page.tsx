@@ -29,7 +29,7 @@ function Page() {
 
         getFriends();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [page]);
 
     return (
         <div className="client-page">

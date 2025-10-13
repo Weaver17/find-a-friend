@@ -31,7 +31,7 @@ function Page() {
 
         getFriends();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [page]);
 
     const colorTitle = deslugify(params.color);
 

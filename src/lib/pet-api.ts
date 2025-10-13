@@ -274,7 +274,11 @@ export const getSingleAnimalBreeds = async (animalType: string) => {
 };
 
 // getting all animals of specific breed
-export const getAnimalsOfBreed = async (animalType: string, breed: string) => {
+export const getAnimalsOfBreed = async (
+    animalType: string,
+    breed: string,
+    page: number
+) => {
     try {
         const accessKey = await fetchAccessKey();
 
@@ -283,7 +287,7 @@ export const getAnimalsOfBreed = async (animalType: string, breed: string) => {
         }
 
         const data = await request(
-            `${BASE_URL}/animals?type=${animalType}&breed=${breed}`,
+            `${BASE_URL}/animals?type=${animalType}&breed=${breed}&page=${page}`,
             {
                 headers: {
                     Authorization: `Bearer ${accessKey}`,
