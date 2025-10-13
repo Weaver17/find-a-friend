@@ -10,24 +10,27 @@ import {
     CustomCardContent,
 } from "../custom/c_card";
 import { CustomInput } from "../custom/c_input";
-import { CustomFieldGroup, CustomFieldSeparator } from "../custom/c_field";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import {
+    CustomFieldDescription,
+    CustomFieldGroup,
+    CustomFieldSeparator,
+} from "../custom/c_field";
 import {
     CustomForm,
     CustomFormDescription,
     CustomFormField,
     CustomFormItem,
     CustomFormLabel,
+    CustomFormMessage,
 } from "../custom/c_form";
 import { useState } from "react";
 import ShowPasswordBtn from "../buttons/show-password-btn";
-
-const formSchema = z.object({
-    email: z.email(),
-    password: z.string().min(8),
-});
+import { useSignInFormContext } from "@/hooks/use-auth-context";
+import { TSignInSchema } from "@/types/types";
+import { CustomSpinner } from "../custom/c_spinner";
+import { useUserContext } from "@/contexts/user-context";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function CustomSignInForm({
     className,
@@ -35,15 +38,36 @@ export function CustomSignInForm({
 }: React.ComponentProps<"div">) {
     const [showPassword, setShowPassword] = useState(false);
 
-    const signInForm = useForm({
-        resolver: zodResolver(formSchema),
-    });
+    const signInForm = useSignInFormContext();
+
+    const { login } = useUserContext();
+
+    const {
+        handleSubmit,
+        formState: { errors, isSubmitting },
+    } = signInForm;
+
+    const router = useRouter();
+
+    const onSubmit = async (data: TSignInSchema) => {
+        try {
+            await login(data);
+            toast.success(
+                "Signed In Successfully! Sending you to the homepage..."
+            );
+            router.push("/");
+            signInForm.reset();
+        } catch (error) {
+            console.error(error);
+            toast.error("Invalid Credentials");
+        }
+    };
 
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
             <CustomCard className="gap-4">
-                <CustomCardHeader>
-                    <CustomCardTitle>Login to your account</CustomCardTitle>
+                <CustomCardHeader className="flex-col">
+                    <CustomCardTitle>Sign In</CustomCardTitle>
                     <CustomCardDescription>
                         Enter your email below to login to your account
                     </CustomCardDescription>
@@ -52,7 +76,7 @@ export function CustomSignInForm({
 
                 <CustomCardContent>
                     <CustomForm {...signInForm}>
-                        <form>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <CustomFieldGroup>
                                 <CustomFormField
                                     control={signInForm.control}
@@ -69,6 +93,11 @@ export function CustomSignInForm({
                                                 required
                                                 {...field}
                                             />
+                                            {errors && (
+                                                <CustomFormMessage>
+                                                    {errors.email?.message}
+                                                </CustomFormMessage>
+                                            )}
                                         </CustomFormItem>
                                     )}
                                 />
@@ -106,16 +135,27 @@ export function CustomSignInForm({
                                                     Forgot your password?
                                                 </Link>
                                             </CustomFormDescription>
+                                            {errors && (
+                                                <CustomFormMessage>
+                                                    {errors.password?.message}
+                                                </CustomFormMessage>
+                                            )}
                                         </CustomFormItem>
                                     )}
                                 />
 
                                 <CustomFieldSeparator />
-                                <CustomButton>Sign In</CustomButton>
-                                <CustomFormDescription className="text-center">
+                                <CustomButton>
+                                    {isSubmitting ? (
+                                        <CustomSpinner />
+                                    ) : (
+                                        "Sign In"
+                                    )}
+                                </CustomButton>
+                                <CustomFieldDescription className="text-center">
                                     Don&apos;t have an account?{" "}
                                     <Link href="/signup">Sign up</Link>
-                                </CustomFormDescription>
+                                </CustomFieldDescription>
                             </CustomFieldGroup>
                         </form>
                     </CustomForm>

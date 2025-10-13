@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import {
     Inter as font_header,
-    Newsreader as font_sans,
-    Cascadia_Mono as font_mono,
+    Syne as font_sans,
+    Geist_Mono as font_mono,
 } from "next/font/google";
 import "./globals.css";
 import { CustomThemeProvider } from "@/components/theme/c_theme-provider";
 import { Toaster } from "sonner";
+import { UserProvider } from "@/contexts/user-context";
 
 const fontHeader = font_header({
     variable: "--font-font-header",
@@ -16,6 +17,7 @@ const fontHeader = font_header({
 const fontSans = font_sans({
     variable: "--font-font-sans",
     subsets: ["latin"],
+    weight: "400",
 });
 
 const fontMono = font_mono({
@@ -35,18 +37,28 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
+            <head>
+                <link
+                    rel="icon"
+                    href="/icon/icon.svg"
+                    type="image/svg"
+                    sizes="any"
+                />
+            </head>
             <body
                 className={`${fontSans.variable} ${fontMono.variable} ${fontHeader.variable} antialiased bg-[#D1F0CA] dark:bg-[#081e03]`}
             >
-                <CustomThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    {children}
-                    <Toaster />
-                </CustomThemeProvider>
+                <UserProvider>
+                    <CustomThemeProvider
+                        attribute="class"
+                        defaultTheme="system"
+                        enableSystem
+                        disableTransitionOnChange
+                    >
+                        {children}
+                        <Toaster position="top-center" />
+                    </CustomThemeProvider>
+                </UserProvider>
             </body>
         </html>
     );

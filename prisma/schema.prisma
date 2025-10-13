@@ -1,0 +1,205 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String        @id @default(cuid())
+  email         String        @unique
+  name          String
+  emailVerified Boolean       @default(false)
+  image         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now()) @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  savedFriends  SavedFriend[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@map("verification")
+}
+
+model SavedFriend {
+  saved_id               String        @id @default(cuid())
+  userId                 String
+  user                   User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  age                    String?
+  attributes             Attributes?
+  breeds                 Breeds?
+  coat                   String?
+  colors                 Colors?
+  contact                Contact?
+  description            String?
+  distance               Float?
+  environment            Environment?
+  gender                 String?
+  id                     Int
+  name                   String?
+  organization_animal_id String?
+  organization_id        String?
+  photos                 Photo[]
+  primary_photo_cropped  PrimaryPhoto?
+  publishedAt            String?
+  size                   String?
+  species                String?
+  status                 String?
+  status_changed_at      String?
+  tags                   String[]
+  type                   String?
+  url                    String?
+  videos                 Video[]
+  links                  Links?
+
+  @@index([userId])
+}
+
+model Breeds {
+  id            String      @id @default(cuid())
+  primary       String?
+  secondary     String?
+  mixed         Boolean?
+  unknown       Boolean?
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
+}
+
+model Colors {
+  id            String      @id @default(cuid())
+  primary       String?
+  secondary     String?
+  tertiary      String?
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
+}
+
+model Attributes {
+  id             String      @id @default(cuid())
+  spayedNeutered Boolean?
+  houseTrained   Boolean?
+  declawed       Boolean?
+  specialNeeds   Boolean?
+  shotsCurrent   Boolean?
+  savedFriend    SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId  String      @unique
+}
+
+model Environment {
+  id            String      @id @default(cuid())
+  children      Boolean?
+  dogs          Boolean?
+  cats          Boolean?
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
+}
+
+model Photo {
+  id            String      @id @default(cuid())
+  small         String?
+  medium        String?
+  large         String?
+  full          String?
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String
+}
+
+model PrimaryPhoto {
+  id            String      @id @default(cuid())
+  small         String?
+  medium        String?
+  large         String?
+  full          String?
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
+}
+
+model Contact {
+  id            String      @id @default(cuid())
+  email         String?
+  phone         String?
+  address       Address?
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
+}
+
+model Address {
+  id        String  @id @default(cuid())
+  address1  String?
+  address2  String?
+  city      String?
+  state     String?
+  postcode  String?
+  country   String?
+  contact   Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  contactId String  @unique
+}
+
+model Links {
+  id            String      @id @default(cuid())
+  self          Json?
+  type          Json?
+  organization  Json?
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
+}
+
+model Video {
+  id            String      @id @default(cuid())
+  embed         String?
+  savedFriend   SavedFriend @relation(fields: [savedFriendId], references: [saved_id], onDelete: Cascade)
+  savedFriendId String      @unique
+}
