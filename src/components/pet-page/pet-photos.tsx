@@ -19,8 +19,8 @@ function PetPhotos({ friend }: PetPhotosProps) {
                         {friend?.photos?.map((photo) => (
                             <li key={photo.small}>
                                 <Image
-                                    src={photo.full}
-                                    alt={friend?.name}
+                                    src={photo.full ?? ""}
+                                    alt={friend?.name ?? ""}
                                     width={600}
                                     height={600}
                                     className="rounded-sm shadow-sm"

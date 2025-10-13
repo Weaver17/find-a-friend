@@ -293,14 +293,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { z } from "zod";
 import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "../ui/form";
+    CustomForm,
+    CustomFormField,
+    CustomFormItem,
+    CustomFormLabel,
+    CustomFormControl,
+    CustomFormDescription,
+    CustomFormMessage,
+} from "./c_form";
 
 const languages = [
     { label: "English", value: "en" },
@@ -332,17 +332,17 @@ export function CustomComboboxFormDemo() {
         });
     }
     return (
-        <Form {...form}>
+        <CustomForm {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField
+                <CustomFormField
                     control={form.control}
                     name="language"
                     render={({ field }) => (
-                        <FormItem className="flex flex-col">
-                            <FormLabel>Language</FormLabel>
+                        <CustomFormItem className="flex flex-col">
+                            <CustomFormLabel>Language</CustomFormLabel>
                             <CustomPopover>
                                 <CustomPopoverTrigger asChild>
-                                    <FormControl>
+                                    <CustomFormControl>
                                         <CustomButton
                                             variant="outline"
                                             className={cn(
@@ -360,7 +360,7 @@ export function CustomComboboxFormDemo() {
                                                 : "Select language"}
                                             <ChevronsUpDown className="opacity-50" />
                                         </CustomButton>
-                                    </FormControl>
+                                    </CustomFormControl>
                                 </CustomPopoverTrigger>
                                 <CustomPopoverContent className="w-[200px] p-0">
                                     <CustomCommand>
@@ -401,16 +401,16 @@ export function CustomComboboxFormDemo() {
                                     </CustomCommand>
                                 </CustomPopoverContent>
                             </CustomPopover>
-                            <FormDescription>
+                            <CustomFormDescription>
                                 This is the language that will be used in the
                                 dashboard.
-                            </FormDescription>
-                            <FormMessage />
-                        </FormItem>
+                            </CustomFormDescription>
+                            <CustomFormMessage />
+                        </CustomFormItem>
                     )}
                 />
                 <CustomButton>Submit</CustomButton>
             </form>
-        </Form>
+        </CustomForm>
     );
 }
