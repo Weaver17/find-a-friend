@@ -25,7 +25,6 @@ function Page() {
     useEffect(() => {
         async function getFriend() {
             await getFriendById(petId).then((data) => {
-                console.log(data);
                 setFriend(data);
             });
         }

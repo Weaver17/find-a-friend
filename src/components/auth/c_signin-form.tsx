@@ -51,7 +51,6 @@ export function CustomSignInForm({
 
     const onSubmit = async (data: TSignInSchema) => {
         try {
-            console.log(data);
             await login(data);
             toast.success(
                 "Signed In Successfully! Sending you to the homepage..."

@@ -98,11 +98,9 @@ export function UserProvider({
     const getSession = async () => {
         setIsLoading(true);
         try {
-            console.log("getting session from context");
             await fetchSession().then((session) => {
                 if (!session) return;
                 getUserById(session.user.id).then((user) => {
-                    console.log("getting user by Id in context");
                     setCurrentUser(user);
                     setIsLoggedIn(true);
                 });

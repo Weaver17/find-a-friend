@@ -34,9 +34,9 @@ const fetchAccessKey = async () => {
         const data = await res.json();
 
         return data.access_token;
-    } catch (e) {
-        console.log(e);
-        throw e;
+    } catch (error) {
+        console.error(error);
+        throw error;
     }
 };
 

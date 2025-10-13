@@ -50,7 +50,6 @@ export function CustomSignupForm({
 
     const onSubmit = async (data: TSignUpSchema) => {
         try {
-            console.log(data);
             await signUp(
                 {
                     name: data.name,

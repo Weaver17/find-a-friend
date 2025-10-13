@@ -88,7 +88,6 @@ export async function signIn(formData: TSignInSchema) {
 
 export async function getUserById(id: string) {
     try {
-        console.log("getting user by Id in server action");
         const user = await prisma.user.findUnique({
             where: {
                 id: id,
@@ -106,7 +105,6 @@ export async function getUserById(id: string) {
 
 export async function fetchSession() {
     try {
-        console.log("fetching session in server action");
         const session = await auth.api.getSession({
             headers: await headers(),
         });
@@ -119,7 +117,6 @@ export async function fetchSession() {
 
 export async function signOut() {
     try {
-        console.log("signing out in server action");
         await auth.api.signOut({
             headers: await headers(),
         });
@@ -134,8 +131,6 @@ export async function saveFriendAction(
     data: TSavedFriendSchema
 ) {
     try {
-        console.log("saving friend...");
-
         const user = await prisma.user.findUnique({
             where: {
                 email: email,
@@ -258,8 +253,6 @@ export async function saveFriendAction(
                 },
             },
         });
-
-        console.log("saved friend");
 
         return user;
     } catch (error) {
